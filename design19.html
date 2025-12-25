@@ -1,0 +1,809 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ju주얼리 - Apple Style</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Apple Style Color Palette */
+            --color-primary: #0071e3;
+            --color-primary-hover: #0077ed;
+            --color-secondary: #86868b;
+            --color-accent: #0071e3;
+            --color-background: #ffffff;
+            --color-background-alt: #f5f5f7;
+            --color-text: #1d1d1f;
+            --color-text-muted: #86868b;
+            --color-border: #d2d2d7;
+
+            /* Typography */
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 6rem;
+            --space-2xl: 8rem;
+
+            /* Border Radius */
+            --radius-sm: 0.5rem;
+            --radius-md: 0.75rem;
+            --radius-lg: 1.25rem;
+            --radius-xl: 1.75rem;
+            --radius-full: 9999px;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.5;
+            font-weight: 400;
+            min-height: 100vh;
+        }
+
+        /* Container */
+        .container {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+
+        .container-wide {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 22px;
+        }
+
+        /* Back Button */
+        .back-button {
+            position: fixed;
+            top: var(--space-sm);
+            left: var(--space-sm);
+            z-index: 1000;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.875rem;
+            font-weight: 400;
+            color: var(--color-primary);
+            text-decoration: none;
+            padding: 8px 12px;
+            border-radius: var(--radius-full);
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            transition: background 0.2s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.95);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 48px;
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-text);
+            text-decoration: none;
+            letter-spacing: -0.01em;
+        }
+
+        nav {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            nav {
+                display: flex;
+                align-items: center;
+                gap: 32px;
+            }
+        }
+
+        nav a {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--color-text);
+            text-decoration: none;
+            opacity: 0.8;
+            transition: opacity 0.2s ease;
+        }
+
+        nav a:hover {
+            opacity: 1;
+        }
+
+        .header-cta {
+            font-size: 0.75rem;
+            font-weight: 400;
+            color: var(--color-primary);
+            text-decoration: none;
+            padding: 4px 12px;
+            border-radius: var(--radius-full);
+            background: var(--color-primary);
+            color: #fff;
+            transition: all 0.2s ease;
+        }
+
+        .header-cta:hover {
+            background: var(--color-primary-hover);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 140px 0 80px;
+            text-align: center;
+            background: var(--color-background);
+        }
+
+        @media (min-width: 768px) {
+            .hero {
+                padding: 180px 0 100px;
+            }
+        }
+
+        .hero-eyebrow {
+            font-size: 1.0625rem;
+            font-weight: 400;
+            color: var(--color-text-muted);
+            margin-bottom: 8px;
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.05;
+            color: var(--color-text);
+            margin-bottom: 16px;
+        }
+
+        .hero-title-gradient {
+            background: linear-gradient(90deg, #c9a962, #e8d5a3, #c9a962);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-desc {
+            font-size: 1.3125rem;
+            font-weight: 400;
+            color: var(--color-text-muted);
+            max-width: 600px;
+            margin: 0 auto 32px;
+            line-height: 1.4;
+        }
+
+        .hero-links {
+            display: flex;
+            gap: 24px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .hero-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 1.0625rem;
+            font-weight: 400;
+            color: var(--color-primary);
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .hero-link:hover {
+            text-decoration: underline;
+        }
+
+        .hero-link svg {
+            width: 14px;
+            height: 14px;
+            transition: transform 0.2s ease;
+        }
+
+        .hero-link:hover svg {
+            transform: translateX(3px);
+        }
+
+        /* Product Showcase */
+        .showcase {
+            padding: 60px 0;
+            background: var(--color-background-alt);
+        }
+
+        .showcase-grid {
+            display: grid;
+            gap: 12px;
+        }
+
+        @media (min-width: 768px) {
+            .showcase-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .showcase-card {
+            position: relative;
+            padding: 48px 40px;
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            text-align: center;
+            min-height: 500px;
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        .showcase-card-dark {
+            background: linear-gradient(180deg, #1d1d1f 0%, #000 100%);
+            color: #fff;
+        }
+
+        .showcase-card-light {
+            background: #fff;
+            color: var(--color-text);
+        }
+
+        .showcase-visual {
+            position: absolute;
+            top: 60px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 6rem;
+            opacity: 0.15;
+        }
+
+        .showcase-card-dark .showcase-visual {
+            color: #c9a962;
+            opacity: 0.3;
+        }
+
+        .showcase-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            opacity: 0.6;
+        }
+
+        .showcase-title {
+            font-size: 2rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+        }
+
+        @media (min-width: 768px) {
+            .showcase-title {
+                font-size: 2.5rem;
+            }
+        }
+
+        .showcase-desc {
+            font-size: 1.0625rem;
+            opacity: 0.7;
+            margin-bottom: 24px;
+            line-height: 1.5;
+        }
+
+        .showcase-links {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .showcase-link {
+            font-size: 1.0625rem;
+            font-weight: 400;
+            color: var(--color-primary);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .showcase-card-dark .showcase-link {
+            color: #2997ff;
+        }
+
+        .showcase-link:hover {
+            text-decoration: underline;
+        }
+
+        /* Features Section */
+        .features {
+            padding: var(--space-2xl) 0;
+            background: var(--color-background);
+        }
+
+        .features-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .features-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .features-desc {
+            font-size: 1.0625rem;
+            color: var(--color-text-muted);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .features-grid {
+            display: grid;
+            gap: 20px;
+        }
+
+        @media (min-width: 768px) {
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .feature-card {
+            padding: 40px 32px;
+            background: var(--color-background-alt);
+            border-radius: var(--radius-lg);
+            text-align: center;
+        }
+
+        .feature-icon {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto 20px;
+            background: linear-gradient(135deg, #c9a962 0%, #e8d5a3 100%);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin-bottom: 8px;
+        }
+
+        .feature-desc {
+            font-size: 0.9375rem;
+            color: var(--color-text-muted);
+            line-height: 1.5;
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: var(--space-xl) 0;
+            background: var(--color-background-alt);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 32px;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .stat-number {
+            font-size: clamp(2.5rem, 6vw, 3.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--color-text);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.9375rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Testimonial */
+        .testimonial {
+            padding: var(--space-2xl) 0;
+            background: var(--color-background);
+        }
+
+        .testimonial-inner {
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .testimonial-quote {
+            font-size: clamp(1.5rem, 4vw, 2rem);
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.4;
+            color: var(--color-text);
+            margin-bottom: 32px;
+        }
+
+        .testimonial-author {
+            font-size: 1rem;
+            font-weight: 500;
+            color: var(--color-text);
+            margin-bottom: 4px;
+        }
+
+        .testimonial-role {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: var(--space-2xl) 0;
+            background: linear-gradient(180deg, #1d1d1f 0%, #000 100%);
+            color: #fff;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 16px;
+        }
+
+        .cta-desc {
+            font-size: 1.0625rem;
+            opacity: 0.7;
+            max-width: 500px;
+            margin: 0 auto 32px;
+            line-height: 1.5;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            font-size: 1.0625rem;
+            font-weight: 400;
+            color: #fff;
+            background: var(--color-primary);
+            text-decoration: none;
+            border-radius: var(--radius-full);
+            transition: all 0.2s ease;
+        }
+
+        .cta-btn:hover {
+            background: var(--color-primary-hover);
+            transform: scale(1.02);
+        }
+
+        /* Footer */
+        footer {
+            padding: 20px 0;
+            background: var(--color-background-alt);
+            border-top: 1px solid var(--color-border);
+        }
+
+        .footer-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 16px;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .footer-inner {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+        }
+
+        .footer-logo {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-text);
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-nav a {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-nav a:hover {
+            color: var(--color-text);
+        }
+
+        .footer-copyright {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Focus States */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--color-primary);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Back Button -->
+    <a href="index.html" class="back-button">
+        <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+            <path d="M7.5 9L4.5 6L7.5 3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+        뒤로
+    </a>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <a href="#" class="logo">Ju</a>
+                <nav>
+                    <a href="#showcase">컬렉션</a>
+                    <a href="#features">특징</a>
+                    <a href="#contact">문의</a>
+                </nav>
+                <a href="#contact" class="header-cta">파트너 문의</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <p class="hero-eyebrow">Since 1994</p>
+            <h1 class="hero-title">
+                <span class="hero-title-gradient">주얼리</span>의 새로운 기준.
+            </h1>
+            <p class="hero-desc">
+                30년의 장인 정신으로 완성되는 프리미엄 주얼리.
+                500개 이상의 파트너사가 신뢰하는 품질.
+            </p>
+            <div class="hero-links">
+                <a href="#showcase" class="hero-link">
+                    컬렉션 보기
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                </a>
+                <a href="#contact" class="hero-link">
+                    파트너 문의
+                    <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" />
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Showcase -->
+    <section class="showcase" id="showcase">
+        <div class="container-wide">
+            <div class="showcase-grid">
+                <div class="showcase-card showcase-card-dark">
+                    <div class="showcase-visual">💍</div>
+                    <div class="showcase-content">
+                        <p class="showcase-label">Rings Collection</p>
+                        <h2 class="showcase-title">Eternity Band</h2>
+                        <p class="showcase-desc">
+                            영원을 약속하는 웨딩밴드.
+                            99.9% 고순도 귀금속.
+                        </p>
+                        <div class="showcase-links">
+                            <a href="#" class="showcase-link">자세히 알아보기 ›</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="showcase-card showcase-card-light">
+                    <div class="showcase-visual">📿</div>
+                    <div class="showcase-content">
+                        <p class="showcase-label">Necklaces</p>
+                        <h2 class="showcase-title">Classic Pendant</h2>
+                        <p class="showcase-desc">
+                            클래식한 아름다움.
+                            모든 순간에 빛나는.
+                        </p>
+                        <div class="showcase-links">
+                            <a href="#" class="showcase-link">자세히 알아보기 ›</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="showcase-card showcase-card-light">
+                    <div class="showcase-visual">✨</div>
+                    <div class="showcase-content">
+                        <p class="showcase-label">Earrings</p>
+                        <h2 class="showcase-title">Drop Diamond</h2>
+                        <p class="showcase-desc">
+                            우아한 드롭 디자인.
+                            천연 다이아몬드.
+                        </p>
+                        <div class="showcase-links">
+                            <a href="#" class="showcase-link">자세히 알아보기 ›</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="showcase-card showcase-card-dark">
+                    <div class="showcase-visual">⌚</div>
+                    <div class="showcase-content">
+                        <p class="showcase-label">Bracelets</p>
+                        <h2 class="showcase-title">Tennis Bracelet</h2>
+                        <p class="showcase-desc">
+                            손목을 감싸는 빛.
+                            프리미엄 테니스 브레이슬릿.
+                        </p>
+                        <div class="showcase-links">
+                            <a href="#" class="showcase-link">자세히 알아보기 ›</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="features-header">
+                <h2 class="features-title">Ju주얼리를 선택하는 이유</h2>
+                <p class="features-desc">
+                    30년간 쌓아온 신뢰와 품질. 파트너와 함께 성장합니다.
+                </p>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">◇</div>
+                    <h3 class="feature-title">프리미엄 소재</h3>
+                    <p class="feature-desc">
+                        99.9% 고순도 귀금속과 엄선된 천연 원석만을 사용합니다.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✦</div>
+                    <h3 class="feature-title">장인 정신</h3>
+                    <p class="feature-desc">
+                        24명의 마스터 장인이 한 점 한 점 정성을 담아 제작합니다.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">◈</div>
+                    <h3 class="feature-title">B2B 파트너십</h3>
+                    <p class="feature-desc">
+                        안정적인 공급과 합리적인 도매가. 파트너 전용 혜택을 제공합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">30</div>
+                    <div class="stat-label">Years</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Partners</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Products</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24</div>
+                    <div class="stat-label">Craftsmen</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial -->
+    <section class="testimonial">
+        <div class="container">
+            <div class="testimonial-inner">
+                <p class="testimonial-quote">
+                    "Ju주얼리와 10년째 파트너십을 유지하고 있습니다.
+                    변함없는 품질과 신뢰가 저희 비즈니스의 근간입니다."
+                </p>
+                <p class="testimonial-author">김대표</p>
+                <p class="testimonial-role">Gold & Silver Boutique</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="contact">
+        <div class="container">
+            <h2 class="cta-title">파트너가 되어주세요</h2>
+            <p class="cta-desc">
+                B2B 거래 문의, 쇼룸 방문 예약, 커스텀 오더까지
+                무엇이든 편하게 연락 주세요.
+            </p>
+            <a href="mailto:partner@jujewelry.co.kr" class="cta-btn">
+                문의하기
+                <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                </svg>
+            </a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <span class="footer-logo">Ju Jewelry</span>
+                <nav class="footer-nav">
+                    <a href="#">About</a>
+                    <a href="#">Collection</a>
+                    <a href="#">Wholesale</a>
+                    <a href="#">Privacy</a>
+                </nav>
+                <p class="footer-copyright">© 2024 Ju Jewelry. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

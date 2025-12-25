@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ju주얼리 - Cyberpunk Neon</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Cyberpunk Color Palette */
+            --color-bg: #0a0a0f;
+            --color-bg-alt: #12121a;
+            --color-surface: #1a1a25;
+            --color-text: #ffffff;
+            --color-text-muted: rgba(255, 255, 255, 0.5);
+
+            /* Neon Colors */
+            --neon-cyan: #00f5ff;
+            --neon-magenta: #ff00ff;
+            --neon-yellow: #ffff00;
+            --neon-pink: #ff0080;
+            --neon-green: #00ff88;
+
+            /* Glows */
+            --glow-cyan: 0 0 20px rgba(0, 245, 255, 0.5), 0 0 40px rgba(0, 245, 255, 0.3);
+            --glow-magenta: 0 0 20px rgba(255, 0, 255, 0.5), 0 0 40px rgba(255, 0, 255, 0.3);
+            --glow-pink: 0 0 20px rgba(255, 0, 128, 0.5), 0 0 40px rgba(255, 0, 128, 0.3);
+
+            /* Typography */
+            --font-display: 'Orbitron', sans-serif;
+            --font-body: 'Rajdhani', sans-serif;
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 6rem;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            font-weight: 400;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Scanlines Effect */
+        .scanlines {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 9999;
+            background: repeating-linear-gradient(
+                0deg,
+                rgba(0, 0, 0, 0.1) 0px,
+                rgba(0, 0, 0, 0.1) 1px,
+                transparent 1px,
+                transparent 2px
+            );
+            opacity: 0.3;
+        }
+
+        /* Grid Background */
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background-image:
+                linear-gradient(rgba(0, 245, 255, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 245, 255, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Neon Text */
+        .neon-text {
+            color: var(--neon-cyan);
+            text-shadow: var(--glow-cyan);
+        }
+
+        .neon-text-pink {
+            color: var(--neon-pink);
+            text-shadow: var(--glow-pink);
+        }
+
+        /* Back Button */
+        .back-button {
+            position: fixed;
+            top: var(--space-md);
+            left: var(--space-md);
+            z-index: 1000;
+            font-family: var(--font-display);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--neon-cyan);
+            text-decoration: none;
+            padding: 10px 20px;
+            border: 1px solid var(--neon-cyan);
+            background: rgba(0, 245, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(0, 245, 255, 0.15);
+            box-shadow: var(--glow-cyan);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px 0;
+            background: rgba(10, 10, 15, 0.9);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(0, 245, 255, 0.2);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--neon-cyan);
+            text-decoration: none;
+            text-shadow: var(--glow-cyan);
+            letter-spacing: 0.1em;
+        }
+
+        nav {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            nav {
+                display: flex;
+                align-items: center;
+                gap: 40px;
+            }
+        }
+
+        nav a {
+            font-family: var(--font-display);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--neon-cyan);
+            text-shadow: var(--glow-cyan);
+        }
+
+        .header-cta {
+            font-family: var(--font-display);
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-bg);
+            text-decoration: none;
+            padding: 12px 24px;
+            background: var(--neon-cyan);
+            box-shadow: var(--glow-cyan);
+            transition: all 0.3s ease;
+        }
+
+        .header-cta:hover {
+            background: var(--neon-pink);
+            box-shadow: var(--glow-pink);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            right: 10%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(255, 0, 128, 0.15) 0%, transparent 70%);
+            filter: blur(60px);
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 20%;
+            left: 10%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 245, 255, 0.15) 0%, transparent 70%);
+            filter: blur(60px);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-family: var(--font-display);
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--neon-pink);
+            padding: 8px 16px;
+            border: 1px solid var(--neon-pink);
+            margin-bottom: var(--space-md);
+            animation: flicker 3s infinite;
+        }
+
+        @keyframes flicker {
+            0%, 100% { opacity: 1; }
+            92% { opacity: 1; }
+            93% { opacity: 0.3; }
+            94% { opacity: 1; }
+            96% { opacity: 0.5; }
+            97% { opacity: 1; }
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 900;
+            letter-spacing: 0.05em;
+            line-height: 1.1;
+            text-transform: uppercase;
+            margin-bottom: var(--space-md);
+        }
+
+        .hero-title .line-1 {
+            color: var(--color-text);
+        }
+
+        .hero-title .line-2 {
+            color: var(--neon-cyan);
+            text-shadow: var(--glow-cyan);
+        }
+
+        .hero-title .line-3 {
+            color: var(--neon-pink);
+            text-shadow: var(--glow-pink);
+        }
+
+        .hero-desc {
+            font-size: 1.125rem;
+            font-weight: 400;
+            color: var(--color-text-muted);
+            max-width: 500px;
+            margin-bottom: var(--space-lg);
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: var(--font-display);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 16px 32px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-neon {
+            color: var(--color-bg);
+            background: var(--neon-cyan);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .btn-neon:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 30px rgba(0, 245, 255, 0.7), 0 0 60px rgba(0, 245, 255, 0.5);
+        }
+
+        .btn-outline {
+            color: var(--neon-pink);
+            background: transparent;
+            border: 1px solid var(--neon-pink);
+        }
+
+        .btn-outline:hover {
+            background: rgba(255, 0, 128, 0.1);
+            box-shadow: var(--glow-pink);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: var(--space-xl) 0;
+            border-top: 1px solid rgba(0, 245, 255, 0.2);
+            border-bottom: 1px solid rgba(0, 245, 255, 0.2);
+            background: var(--color-bg-alt);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-lg);
+        }
+
+        @media (min-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            color: var(--neon-cyan);
+            text-shadow: var(--glow-cyan);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-family: var(--font-display);
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+        }
+
+        /* Features Section */
+        .features {
+            padding: var(--space-xl) 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-label {
+            font-family: var(--font-display);
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--neon-pink);
+            margin-bottom: var(--space-sm);
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: var(--color-text);
+        }
+
+        .features-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .feature-card {
+            padding: 40px 32px;
+            background: var(--color-surface);
+            border: 1px solid rgba(0, 245, 255, 0.2);
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .feature-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-cyan), var(--neon-pink));
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .feature-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .feature-card:hover {
+            border-color: var(--neon-cyan);
+            box-shadow: inset 0 0 30px rgba(0, 245, 255, 0.05);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto var(--space-md);
+            border: 2px solid var(--neon-cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: var(--neon-cyan);
+        }
+
+        .feature-title {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 12px;
+            color: var(--color-text);
+        }
+
+        .feature-desc {
+            font-size: 0.9375rem;
+            color: var(--color-text-muted);
+            line-height: 1.7;
+        }
+
+        /* Products Section */
+        .products {
+            padding: var(--space-xl) 0;
+            background: var(--color-bg-alt);
+        }
+
+        .products-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .product-card {
+            aspect-ratio: 3/4;
+            position: relative;
+            background: var(--color-surface);
+            border: 1px solid rgba(255, 0, 128, 0.3);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            border-color: var(--neon-pink);
+            box-shadow: var(--glow-pink);
+        }
+
+        .product-card:nth-child(even) {
+            border-color: rgba(0, 245, 255, 0.3);
+        }
+
+        .product-card:nth-child(even):hover {
+            border-color: var(--neon-cyan);
+            box-shadow: var(--glow-cyan);
+        }
+
+        .product-visual {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -60%);
+            font-size: 4rem;
+            opacity: 0.2;
+        }
+
+        .product-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px;
+            background: linear-gradient(to top, rgba(10, 10, 15, 0.95), transparent);
+        }
+
+        .product-category {
+            font-family: var(--font-display);
+            font-size: 0.6rem;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--neon-pink);
+            margin-bottom: 8px;
+        }
+
+        .product-card:nth-child(even) .product-category {
+            color: var(--neon-cyan);
+        }
+
+        .product-name {
+            font-family: var(--font-display);
+            font-size: 1.125rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+        }
+
+        .product-price {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: var(--space-xl) 0;
+            position: relative;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 0, 128, 0.1) 0%, rgba(0, 245, 255, 0.1) 100%);
+        }
+
+        .cta-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+            padding: var(--space-xl);
+            border: 1px solid rgba(0, 245, 255, 0.3);
+            background: rgba(10, 10, 15, 0.8);
+        }
+
+        .cta-title {
+            font-family: var(--font-display);
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: var(--space-sm);
+        }
+
+        .cta-title span {
+            color: var(--neon-cyan);
+            text-shadow: var(--glow-cyan);
+        }
+
+        .cta-desc {
+            font-size: 1rem;
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-lg);
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            padding: var(--space-lg) 0;
+            border-top: 1px solid rgba(0, 245, 255, 0.2);
+        }
+
+        .footer-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-md);
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .footer-inner {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 0.1em;
+            color: var(--neon-cyan);
+            text-shadow: var(--glow-cyan);
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-nav a {
+            font-family: var(--font-display);
+            font-size: 0.65rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-nav a:hover {
+            color: var(--neon-cyan);
+        }
+
+        .footer-copyright {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Focus States */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--neon-cyan);
+            outline-offset: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Scanlines -->
+    <div class="scanlines"></div>
+
+    <!-- Grid Background -->
+    <div class="grid-bg"></div>
+
+    <!-- Back Button -->
+    <a href="index.html" class="back-button">← Back</a>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <a href="#" class="logo">JU//</a>
+                <nav>
+                    <a href="#features">System</a>
+                    <a href="#products">Collection</a>
+                    <a href="#contact">Connect</a>
+                </nav>
+                <a href="#contact" class="header-cta">Access</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-badge">// Established 1994</span>
+                <h1 class="hero-title">
+                    <span class="line-1">Premium</span>
+                    <span class="line-2">Jewelry</span>
+                    <span class="line-3">Network</span>
+                </h1>
+                <p class="hero-desc">
+                    30년의 장인 정신으로 완성되는 프리미엄 주얼리 시스템.
+                    500개 이상의 파트너 네트워크가 연결되어 있습니다.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#products" class="btn btn-neon">Enter System</a>
+                    <a href="#features" class="btn btn-outline">Learn More</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">30</div>
+                    <div class="stat-label">Years Active</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Connected</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Products</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24</div>
+                    <div class="stat-label">Operators</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-label">// System Protocol</p>
+                <h2 class="section-title">Core Features</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">◇</div>
+                    <h3 class="feature-title">Premium Grade</h3>
+                    <p class="feature-desc">
+                        99.9% 고순도 귀금속과 엄선된 천연 원석만을 사용합니다.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⬡</div>
+                    <h3 class="feature-title">Master Craft</h3>
+                    <p class="feature-desc">
+                        24명의 마스터 장인이 한 점 한 점 정성을 담아 제작합니다.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">◈</div>
+                    <h3 class="feature-title">B2B Protocol</h3>
+                    <p class="feature-desc">
+                        안정적인 공급과 합리적인 도매가. 파트너 전용 액세스를 제공합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products" id="products">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-label">// Data Archive</p>
+                <h2 class="section-title">Collection</h2>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-visual">💍</div>
+                    <div class="product-info">
+                        <p class="product-category">Rings</p>
+                        <h3 class="product-name">Eternity Band</h3>
+                        <p class="product-price">도매가 문의</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-visual">📿</div>
+                    <div class="product-info">
+                        <p class="product-category">Necklaces</p>
+                        <h3 class="product-name">Classic Pendant</h3>
+                        <p class="product-price">도매가 문의</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-visual">✨</div>
+                    <div class="product-info">
+                        <p class="product-category">Earrings</p>
+                        <h3 class="product-name">Drop Diamond</h3>
+                        <p class="product-price">도매가 문의</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-visual">⌚</div>
+                    <div class="product-info">
+                        <p class="product-category">Bracelets</p>
+                        <h3 class="product-name">Tennis Bracelet</h3>
+                        <p class="product-price">도매가 문의</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="contact">
+        <div class="container">
+            <div class="cta-inner">
+                <h2 class="cta-title">Join the <span>Network</span></h2>
+                <p class="cta-desc">
+                    B2B 거래 문의, 쇼룸 방문 예약, 커스텀 오더까지
+                    무엇이든 편하게 연락 주세요.
+                </p>
+                <a href="mailto:partner@jujewelry.co.kr" class="btn btn-neon">
+                    Initialize Connection →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <span class="footer-logo">JU// JEWELRY</span>
+                <nav class="footer-nav">
+                    <a href="#">System</a>
+                    <a href="#">Archive</a>
+                    <a href="#">Protocol</a>
+                    <a href="#">Privacy</a>
+                </nav>
+                <p class="footer-copyright">© 2024 Ju Jewelry. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

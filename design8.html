@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JU Jewelry — Clean Professional</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;0,600;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #111111;
+            --dark: #1a1a1a;
+            --gray: #666666;
+            --light-gray: #999999;
+            --border: #e5e5e5;
+            --bg: #fafafa;
+            --white: #ffffff;
+            --gold: #9a8355;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Outfit', sans-serif;
+            font-weight: 400;
+            color: var(--black);
+            background: var(--white);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 100px;
+            left: 32px;
+            z-index: 1000;
+            padding: 12px 24px;
+            background: var(--black);
+            color: var(--white);
+            font-size: 13px;
+            font-weight: 400;
+            text-decoration: none;
+            transition: background 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: var(--gold);
+        }
+
+        /* Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: 72px;
+            background: var(--white);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 48px;
+        }
+
+        .logo {
+            font-family: 'Cormorant', serif;
+            font-size: 1.5rem;
+            font-weight: 500;
+            color: var(--black);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        nav a {
+            font-size: 14px;
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: var(--black);
+        }
+
+        .nav-cta {
+            padding: 10px 24px;
+            background: var(--black);
+            color: var(--white);
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .nav-cta:hover {
+            background: var(--gold);
+            color: var(--white);
+        }
+
+        /* Hero */
+        .hero {
+            padding: 160px 48px 120px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero-label {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 24px;
+        }
+
+        .hero-title {
+            font-family: 'Cormorant', serif;
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 400;
+            line-height: 1.15;
+            color: var(--black);
+            margin-bottom: 24px;
+            max-width: 700px;
+        }
+
+        .hero-title em {
+            font-style: italic;
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--gray);
+            line-height: 1.8;
+            max-width: 500px;
+            margin-bottom: 40px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--black);
+            color: var(--white);
+        }
+
+        .btn-primary:hover {
+            background: var(--gold);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--black);
+            border: 1px solid var(--border);
+            margin-left: 12px;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--black);
+        }
+
+        /* Section Common */
+        section {
+            padding: 100px 48px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-full {
+            max-width: none;
+            padding: 100px 0;
+        }
+
+        .section-label {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: 'Cormorant', serif;
+            font-size: clamp(1.8rem, 3vw, 2.5rem);
+            font-weight: 400;
+            color: var(--black);
+            margin-bottom: 20px;
+        }
+
+        /* About */
+        .about {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .about-content p {
+            font-size: 1rem;
+            color: var(--gray);
+            line-height: 1.9;
+            margin-bottom: 32px;
+        }
+
+        .about-image {
+            aspect-ratio: 4/5;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .about-image span {
+            font-family: 'Cormorant', serif;
+            font-size: 4rem;
+            color: var(--border);
+            font-style: italic;
+        }
+
+        /* Products */
+        .products-section {
+            background: var(--bg);
+        }
+
+        .products-header {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 48px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 48px;
+        }
+
+        .products-link {
+            font-size: 14px;
+            color: var(--black);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .products-link:hover {
+            color: var(--gold);
+        }
+
+        .products-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 48px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .product-card {
+            background: var(--white);
+            cursor: pointer;
+            transition: box-shadow 0.3s ease;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+        }
+
+        .product-image {
+            aspect-ratio: 1;
+            background: var(--bg);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-category {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 6px;
+        }
+
+        .product-name {
+            font-family: 'Cormorant', serif;
+            font-size: 1.1rem;
+            color: var(--black);
+        }
+
+        /* Features */
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+            margin-top: 60px;
+        }
+
+        .feature-card {
+            padding: 40px;
+            border: 1px solid var(--border);
+            transition: border-color 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--gold);
+        }
+
+        .feature-number {
+            font-family: 'Cormorant', serif;
+            font-size: 2.5rem;
+            color: var(--border);
+            margin-bottom: 20px;
+            line-height: 1;
+        }
+
+        .feature-title {
+            font-family: 'Cormorant', serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            margin-bottom: 12px;
+        }
+
+        .feature-desc {
+            font-size: 0.95rem;
+            color: var(--gray);
+            line-height: 1.7;
+        }
+
+        /* Stats */
+        .stats {
+            background: var(--black);
+            color: var(--white);
+            max-width: none;
+        }
+
+        .stats-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 48px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: 'Cormorant', serif;
+            font-size: 3rem;
+            font-weight: 400;
+            margin-bottom: 8px;
+        }
+
+        .stat-number span {
+            color: var(--gold);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--light-gray);
+        }
+
+        /* CTA */
+        .cta {
+            text-align: center;
+            background: var(--bg);
+            max-width: none;
+        }
+
+        .cta-inner {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .cta-title {
+            font-family: 'Cormorant', serif;
+            font-size: clamp(2rem, 3.5vw, 2.8rem);
+            font-weight: 400;
+            margin-bottom: 16px;
+        }
+
+        .cta-title em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .cta-desc {
+            font-size: 1rem;
+            color: var(--gray);
+            margin-bottom: 32px;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--dark);
+            color: var(--white);
+            padding: 80px 48px 40px;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer-brand {
+            font-family: 'Cormorant', serif;
+            font-size: 1.5rem;
+            margin-bottom: 16px;
+        }
+
+        .footer-desc {
+            font-size: 0.9rem;
+            color: var(--light-gray);
+            line-height: 1.7;
+            max-width: 280px;
+        }
+
+        .footer-col h4 {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 24px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col a {
+            font-size: 14px;
+            color: var(--light-gray);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-col a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 32px;
+            font-size: 13px;
+            color: var(--light-gray);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .about {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .about-image {
+                order: -1;
+                aspect-ratio: 16/9;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 32px;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 0 24px;
+            }
+
+            nav a:not(.nav-cta) {
+                display: none;
+            }
+
+            .hero {
+                padding: 140px 24px 80px;
+            }
+
+            section {
+                padding: 80px 24px;
+            }
+
+            .products-header,
+            .products-grid {
+                padding: 0 24px;
+            }
+
+            .stats-inner {
+                padding: 0 24px;
+            }
+
+            .back-btn {
+                left: 16px;
+                padding: 10px 18px;
+                font-size: 12px;
+            }
+
+            footer {
+                padding: 60px 24px 32px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                height: 64px;
+                padding: 0 20px;
+            }
+
+            .logo {
+                font-size: 1.3rem;
+            }
+
+            .nav-cta {
+                padding: 8px 16px;
+                font-size: 12px;
+            }
+
+            .back-btn {
+                top: 80px;
+                left: 16px;
+                padding: 10px 16px;
+                font-size: 11px;
+            }
+
+            .hero {
+                padding: 120px 20px 60px;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .hero-desc {
+                font-size: 0.95rem;
+            }
+
+            .btn {
+                padding: 14px 24px;
+                font-size: 13px;
+            }
+
+            .btn-outline {
+                margin-left: 0;
+                margin-top: 12px;
+            }
+
+            section {
+                padding: 60px 20px;
+            }
+
+            .products-header,
+            .products-grid {
+                padding: 0 20px;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 16px;
+            }
+
+            .product-info {
+                padding: 16px;
+            }
+
+            .product-name {
+                font-size: 1rem;
+            }
+
+            .features-grid {
+                margin-top: 40px;
+            }
+
+            .feature-card {
+                padding: 28px;
+            }
+
+            .feature-number {
+                font-size: 2rem;
+            }
+
+            .feature-title {
+                font-size: 1.15rem;
+            }
+
+            .stats {
+                padding: 60px 20px;
+            }
+
+            .stats-inner {
+                padding: 0;
+            }
+
+            .stat-number {
+                font-size: 2.2rem;
+            }
+
+            .stat-label {
+                font-size: 10px;
+            }
+
+            .cta {
+                padding: 60px 20px;
+            }
+
+            .cta-title {
+                font-size: 1.8rem;
+            }
+
+            footer {
+                padding: 50px 20px 28px;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">← 시안 선택으로</a>
+
+    <header>
+        <a href="#" class="logo">JU Jewelry</a>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#products">Products</a>
+            <a href="#services">Services</a>
+            <a href="#contact" class="nav-cta">Contact</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-label">Since 1994</div>
+        <h1 class="hero-title">
+            30년 전통의<br>
+            프리미엄 귀금속 <em>도매</em>
+        </h1>
+        <p class="hero-desc">
+            5,000여 파트너와 함께 쌓아온 신뢰. 제조사 직거래 시스템으로
+            최적의 가격과 품질을 제공합니다.
+        </p>
+        <div>
+            <a href="#contact" class="btn btn-primary">파트너 문의</a>
+            <a href="#products" class="btn btn-outline">제품 보기</a>
+        </div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="about-content">
+            <div class="section-label">About Us</div>
+            <h2 class="section-title">진정한 가치는 시간이 증명합니다</h2>
+            <p>
+                Ju주얼리는 1994년 설립 이래 변함없는 품질과 신뢰를 바탕으로
+                대한민국 귀금속 도매 시장을 선도해 왔습니다.
+            </p>
+            <p>
+                중간 유통 없는 제조사 직거래 시스템으로 최적의 가격을 제공하며,
+                GIA 인증 다이아몬드와 엄격한 품질 관리로 파트너의 성공을 함께합니다.
+            </p>
+        </div>
+        <div class="about-image">
+            <span>JU</span>
+        </div>
+    </section>
+
+    <section id="products" class="section-full products-section">
+        <div class="products-header">
+            <div>
+                <div class="section-label">Collection</div>
+                <h2 class="section-title">제품 컬렉션</h2>
+            </div>
+            <a href="#" class="products-link">View All →</a>
+        </div>
+        <div class="products-grid">
+            <div class="product-card">
+                <div class="product-image">💍</div>
+                <div class="product-info">
+                    <div class="product-category">Rings</div>
+                    <div class="product-name">18K Diamond Ring</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">📿</div>
+                <div class="product-info">
+                    <div class="product-category">Necklaces</div>
+                    <div class="product-name">Gold Pendant</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">💎</div>
+                <div class="product-info">
+                    <div class="product-category">Earrings</div>
+                    <div class="product-name">Drop Earrings</div>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image">⌚</div>
+                <div class="product-info">
+                    <div class="product-category">Bracelets</div>
+                    <div class="product-name">Tennis Bracelet</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="services">
+        <div class="section-label">Why JU</div>
+        <h2 class="section-title">파트너의 성공을 위한 솔루션</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-number">01</div>
+                <h3 class="feature-title">Direct Wholesale</h3>
+                <p class="feature-desc">
+                    제조사 직거래를 통해 중간 유통 마진 없이 최적의 가격으로 공급합니다.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-number">02</div>
+                <h3 class="feature-title">GIA Certified</h3>
+                <p class="feature-desc">
+                    국제 표준 인증 다이아몬드. 신뢰할 수 있는 품질 검증 시스템.
+                </p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-number">03</div>
+                <h3 class="feature-title">Dedicated Support</h3>
+                <p class="feature-desc">
+                    전담 담당자 배정 및 맞춤 상담. 파트너사 성공을 위한 체계적 지원.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats section-full">
+        <div class="stats-inner">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">30<span>+</span></div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">5K<span>+</span></div>
+                    <div class="stat-label">Partner Stores</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50K<span>+</span></div>
+                    <div class="stat-label">Products</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">99<span>%</span></div>
+                    <div class="stat-label">Satisfaction</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="cta section-full">
+        <div class="cta-inner">
+            <div class="section-label">Contact</div>
+            <h2 class="cta-title">파트너십의 <em>시작</em></h2>
+            <p class="cta-desc">
+                Ju주얼리와 함께 새로운 비즈니스 기회를 만들어가세요.
+            </p>
+            <a href="#" class="btn btn-primary">상담 신청하기</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div>
+                    <div class="footer-brand">JU Jewelry</div>
+                    <p class="footer-desc">
+                        30년 전통의 프리미엄 귀금속 도매.
+                        신뢰와 품질로 파트너의 성공을 함께합니다.
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>Collection</h4>
+                    <ul>
+                        <li><a href="#">Rings</a></li>
+                        <li><a href="#">Necklaces</a></li>
+                        <li><a href="#">Earrings</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Wholesale</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="#">02-000-0000</a></li>
+                        <li><a href="#">서울 종로구</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2024 JU Jewelry. All Rights Reserved.</span>
+                <span>Instagram · KakaoTalk</span>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

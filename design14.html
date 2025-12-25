@@ -1,0 +1,1068 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JU Jewelry — Quiet Luxury</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Noto+Serif+KR:wght@300;400;500&family=Pretendard:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-primary: #fdfcfa;
+            --bg-secondary: #f5f4f1;
+            --surface: #ffffff;
+            --text-default: #1a1a1a;
+            --text-muted: #6b6b6b;
+            --text-subtle: #9a9a9a;
+            --border: #e5e4e1;
+            --accent: #a08c5b;
+            --accent-hover: #8a7a50;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-default);
+            line-height: 1.7;
+            font-size: 16px;
+            font-weight: 400;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: var(--surface);
+        }
+
+        /* Typography */
+        .serif {
+            font-family: 'Noto Serif KR', 'Cormorant Garamond', serif;
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 100px;
+            left: 48px;
+            z-index: 1000;
+            font-size: 13px;
+            color: var(--text-muted);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+            transition: color 0.2s ease;
+        }
+
+        .back-btn:hover {
+            color: var(--text-default);
+        }
+
+        /* Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: 72px;
+            background: var(--bg-primary);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 48px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: var(--text-default);
+            text-decoration: none;
+            letter-spacing: 0.05em;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+        }
+
+        nav a {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
+            text-decoration: none;
+            letter-spacing: 0.02em;
+            transition: color 0.2s ease;
+        }
+
+        nav a:hover {
+            color: var(--text-default);
+        }
+
+        .nav-cta {
+            padding: 12px 24px;
+            background: var(--text-default);
+            color: var(--surface);
+        }
+
+        .nav-cta:hover {
+            background: #333;
+            color: var(--surface);
+        }
+
+        /* Hero - One Bold Moment */
+        .hero {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 1.4fr;
+            padding-top: 72px;
+        }
+
+        .hero-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 80px 48px 80px 48px;
+            max-width: 560px;
+            margin-left: auto;
+        }
+
+        .hero-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2.8rem;
+            font-weight: 300;
+            line-height: 1.3;
+            color: var(--text-default);
+            letter-spacing: -0.02em;
+            margin-bottom: 20px;
+        }
+
+        .hero-subtitle {
+            font-size: 15px;
+            color: var(--text-muted);
+            margin-bottom: 48px;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 16px;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            padding: 16px 32px;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.02em;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            background: var(--text-default);
+            color: var(--surface);
+        }
+
+        .btn-primary:hover {
+            background: #333;
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--text-default);
+            border: 1px solid var(--border);
+        }
+
+        .btn-secondary:hover {
+            border-color: var(--text-default);
+        }
+
+        .hero-image {
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12rem;
+            position: relative;
+        }
+
+        /* Trust Badges */
+        .trust {
+            padding: 48px 48px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .trust-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: center;
+            gap: 48px;
+        }
+
+        .trust-item {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .trust-item::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 6px;
+            background: var(--accent);
+            border-radius: 50%;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+
+        /* Categories */
+        .categories {
+            padding: 120px 48px;
+        }
+
+        .categories-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 64px;
+        }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 16px;
+        }
+
+        .section-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 2rem;
+            font-weight: 300;
+            color: var(--text-default);
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .category-card {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .category-image {
+            aspect-ratio: 1;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            margin-bottom: 16px;
+            transition: transform 0.3s ease;
+            overflow: hidden;
+        }
+
+        .category-card:hover .category-image {
+            transform: scale(1.02);
+        }
+
+        .category-name {
+            font-size: 14px;
+            font-weight: 500;
+            text-align: center;
+            color: var(--text-default);
+        }
+
+        /* Lineup */
+        .lineup {
+            padding: 120px 48px;
+            background: var(--surface);
+        }
+
+        .lineup-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .lineup-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
+            margin-bottom: 48px;
+        }
+
+        .product-card {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .product-image {
+            aspect-ratio: 4/5;
+            background: var(--bg-secondary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+            margin-bottom: 20px;
+        }
+
+        .product-name {
+            font-size: 15px;
+            font-weight: 500;
+            color: var(--text-default);
+            margin-bottom: 6px;
+        }
+
+        .product-spec {
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .lineup-link {
+            text-align: center;
+        }
+
+        .text-link {
+            font-size: 14px;
+            font-weight: 500;
+            color: var(--text-default);
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: gap 0.2s ease;
+        }
+
+        .text-link:hover {
+            gap: 12px;
+            color: var(--accent);
+        }
+
+        /* Trade Terms */
+        .terms {
+            padding: 120px 48px;
+            background: var(--bg-primary);
+        }
+
+        .terms-inner {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .terms-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .terms-table tr {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .terms-table td {
+            padding: 20px 0;
+            vertical-align: top;
+        }
+
+        .terms-table td:first-child {
+            width: 140px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
+            letter-spacing: 0.02em;
+        }
+
+        .terms-table td:last-child {
+            font-size: 15px;
+            color: var(--text-default);
+        }
+
+        /* Visit */
+        .visit {
+            padding: 120px 48px;
+            background: var(--bg-secondary);
+        }
+
+        .visit-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+
+        .visit-image {
+            aspect-ratio: 4/3;
+            background: var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 6rem;
+        }
+
+        .visit-content {
+            padding: 40px 0;
+        }
+
+        .visit-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.8rem;
+            font-weight: 300;
+            color: var(--text-default);
+            margin-bottom: 32px;
+        }
+
+        .visit-info {
+            margin-bottom: 32px;
+        }
+
+        .visit-row {
+            display: flex;
+            padding: 12px 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .visit-label {
+            width: 80px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        .visit-value {
+            font-size: 15px;
+            color: var(--text-default);
+        }
+
+        /* Contact Form */
+        .contact {
+            padding: 120px 48px;
+            background: var(--surface);
+        }
+
+        .contact-inner {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 24px;
+        }
+
+        .form-label {
+            display: block;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+            letter-spacing: 0.02em;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 16px;
+            font-size: 15px;
+            font-family: inherit;
+            border: 1px solid var(--border);
+            background: var(--bg-primary);
+            color: var(--text-default);
+            transition: border-color 0.2s ease;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--accent);
+        }
+
+        .form-input::placeholder {
+            color: var(--text-subtle);
+        }
+
+        .form-select {
+            width: 100%;
+            padding: 16px;
+            font-size: 15px;
+            font-family: inherit;
+            border: 1px solid var(--border);
+            background: var(--bg-primary);
+            color: var(--text-default);
+            cursor: pointer;
+        }
+
+        .form-textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        .form-submit {
+            width: 100%;
+            padding: 18px;
+            font-size: 14px;
+            font-weight: 500;
+            font-family: inherit;
+            background: var(--text-default);
+            color: var(--surface);
+            border: none;
+            cursor: pointer;
+            transition: background 0.2s ease;
+        }
+
+        .form-submit:hover {
+            background: #333;
+        }
+
+        .form-note {
+            text-align: center;
+            margin-top: 16px;
+            font-size: 13px;
+            color: var(--text-muted);
+        }
+
+        /* Footer */
+        footer {
+            padding: 80px 48px 48px;
+            background: #1a1a1a;
+            color: #999;
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            padding-bottom: 48px;
+            border-bottom: 1px solid #333;
+        }
+
+        .footer-brand {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.3rem;
+            color: #fff;
+            margin-bottom: 16px;
+        }
+
+        .footer-desc {
+            font-size: 13px;
+            line-height: 1.8;
+            color: #666;
+            max-width: 280px;
+        }
+
+        .footer-col h4 {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: #666;
+            margin-bottom: 20px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 12px;
+        }
+
+        .footer-col a {
+            font-size: 13px;
+            color: #888;
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        .footer-col a:hover {
+            color: #fff;
+        }
+
+        .footer-bottom {
+            padding-top: 32px;
+            font-size: 12px;
+            color: #555;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .footer-legal {
+            line-height: 1.8;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-links a {
+            color: #555;
+            text-decoration: none;
+        }
+
+        .footer-links a:hover {
+            color: #888;
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .hero {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-content {
+                max-width: none;
+                margin: 0;
+                padding: 120px 48px 60px;
+            }
+
+            .hero-image {
+                min-height: 50vh;
+            }
+
+            .categories-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .lineup-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .visit-inner {
+                grid-template-columns: 1fr;
+                gap: 48px;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 0 24px;
+            }
+
+            nav a:not(.nav-cta) {
+                display: none;
+            }
+
+            .back-btn {
+                left: 24px;
+                top: 92px;
+            }
+
+            .hero-content {
+                padding: 100px 24px 48px;
+            }
+
+            .hero-title {
+                font-size: 2rem;
+            }
+
+            .trust {
+                padding: 32px 24px;
+            }
+
+            .trust-inner {
+                flex-wrap: wrap;
+                gap: 24px;
+                justify-content: flex-start;
+            }
+
+            .categories,
+            .lineup,
+            .terms,
+            .visit,
+            .contact {
+                padding: 80px 24px;
+            }
+
+            .lineup-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+
+            footer {
+                padding: 60px 24px 32px;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 16px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 0 20px;
+                height: 64px;
+            }
+
+            .logo {
+                font-size: 1.2rem;
+            }
+
+            .nav-cta {
+                padding: 10px 18px;
+                font-size: 12px;
+            }
+
+            .back-btn {
+                left: 20px;
+                top: 80px;
+                font-size: 12px;
+            }
+
+            .hero-content {
+                padding: 88px 20px 40px;
+            }
+
+            .hero-title {
+                font-size: 1.7rem;
+            }
+
+            .hero-cta {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .trust-inner {
+                flex-direction: column;
+                gap: 16px;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .categories-grid {
+                gap: 16px;
+            }
+
+            .category-image {
+                font-size: 3rem;
+            }
+
+            .lineup-grid {
+                gap: 16px;
+            }
+
+            .product-image {
+                font-size: 3.5rem;
+            }
+
+            .product-name {
+                font-size: 14px;
+            }
+
+            .categories,
+            .lineup,
+            .terms,
+            .visit,
+            .contact {
+                padding: 64px 20px;
+            }
+
+            footer {
+                padding: 48px 20px 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">← 시안 선택으로</a>
+
+    <header>
+        <a href="#" class="logo">Ju Jewelry</a>
+        <nav>
+            <a href="#categories">제품</a>
+            <a href="#terms">거래안내</a>
+            <a href="#visit">오시는길</a>
+            <a href="#contact" class="nav-cta">상담 요청</a>
+        </nav>
+    </header>
+
+    <!-- Hero: One Bold Moment -->
+    <section class="hero">
+        <div class="hero-content">
+            <h1 class="hero-title">30년,<br>변하지 않는 기준</h1>
+            <p class="hero-subtitle">프리미엄 귀금속 도매</p>
+            <div class="hero-cta">
+                <a href="#contact" class="btn btn-primary">도매 상담 요청</a>
+                <a href="#" class="btn btn-secondary">카탈로그 요청</a>
+            </div>
+        </div>
+        <div class="hero-image">💎</div>
+    </section>
+
+    <!-- Trust Badges -->
+    <section class="trust">
+        <div class="trust-inner">
+            <span class="trust-item">사업자 거래 전문</span>
+            <span class="trust-item">세금계산서 발행</span>
+            <span class="trust-item">당일/익일 출고</span>
+            <span class="trust-item">GIA 인증 다이아</span>
+            <span class="trust-item">30년 업력</span>
+        </div>
+    </section>
+
+    <!-- Categories -->
+    <section id="categories" class="categories">
+        <div class="categories-inner">
+            <div class="section-header">
+                <p class="section-label">Collection</p>
+                <h2 class="section-title">제품 카테고리</h2>
+            </div>
+            <div class="categories-grid">
+                <a href="#" class="category-card">
+                    <div class="category-image">💍</div>
+                    <p class="category-name">반지</p>
+                </a>
+                <a href="#" class="category-card">
+                    <div class="category-image">📿</div>
+                    <p class="category-name">목걸이</p>
+                </a>
+                <a href="#" class="category-card">
+                    <div class="category-image">💎</div>
+                    <p class="category-name">귀걸이</p>
+                </a>
+                <a href="#" class="category-card">
+                    <div class="category-image">⌚</div>
+                    <p class="category-name">팔찌</p>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Lineup -->
+    <section class="lineup">
+        <div class="lineup-inner">
+            <div class="section-header">
+                <p class="section-label">Best Sellers</p>
+                <h2 class="section-title">대표 라인업</h2>
+            </div>
+            <div class="lineup-grid">
+                <a href="#" class="product-card">
+                    <div class="product-image">💍</div>
+                    <h3 class="product-name">18K 솔리테어 다이아 반지</h3>
+                    <p class="product-spec">0.3ct / 18K White Gold</p>
+                </a>
+                <a href="#" class="product-card">
+                    <div class="product-image">📿</div>
+                    <h3 class="product-name">14K 테니스 목걸이</h3>
+                    <p class="product-spec">2.0ct Total / 14K Gold</p>
+                </a>
+                <a href="#" class="product-card">
+                    <div class="product-image">💎</div>
+                    <h3 class="product-name">18K 드롭 귀걸이</h3>
+                    <p class="product-spec">0.5ct / 18K Rose Gold</p>
+                </a>
+                <a href="#" class="product-card">
+                    <div class="product-image">⌚</div>
+                    <h3 class="product-name">18K 테니스 팔찌</h3>
+                    <p class="product-spec">3.0ct Total / 18K Gold</p>
+                </a>
+                <a href="#" class="product-card">
+                    <div class="product-image">💍</div>
+                    <h3 class="product-name">플래티넘 웨딩밴드</h3>
+                    <p class="product-spec">Pt950 / 3mm</p>
+                </a>
+                <a href="#" class="product-card">
+                    <div class="product-image">📿</div>
+                    <h3 class="product-name">18K 펄 펜던트</h3>
+                    <p class="product-spec">South Sea Pearl / 18K</p>
+                </a>
+            </div>
+            <div class="lineup-link">
+                <a href="#" class="text-link">전체 제품 보기 →</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Trade Terms -->
+    <section id="terms" class="terms">
+        <div class="terms-inner">
+            <div class="section-header">
+                <p class="section-label">Trade Information</p>
+                <h2 class="section-title">거래 안내</h2>
+            </div>
+            <table class="terms-table">
+                <tr>
+                    <td>최소 주문</td>
+                    <td>협의 (소량 주문 가능)</td>
+                </tr>
+                <tr>
+                    <td>리드타임</td>
+                    <td>재고품 당일/익일 출고, 주문제작 7-14일</td>
+                </tr>
+                <tr>
+                    <td>결제</td>
+                    <td>세금계산서 발행, 현금/카드 결제</td>
+                </tr>
+                <tr>
+                    <td>배송</td>
+                    <td>전국 택배 발송, 방문 수령 가능</td>
+                </tr>
+                <tr>
+                    <td>교환/반품</td>
+                    <td>7일 이내 동일 조건 교환</td>
+                </tr>
+                <tr>
+                    <td>AS</td>
+                    <td>구매 제품 무상 점검, 수리 협의</td>
+                </tr>
+            </table>
+        </div>
+    </section>
+
+    <!-- Visit -->
+    <section id="visit" class="visit">
+        <div class="visit-inner">
+            <div class="visit-image">🏢</div>
+            <div class="visit-content">
+                <h2 class="visit-title">방문 안내</h2>
+                <div class="visit-info">
+                    <div class="visit-row">
+                        <span class="visit-label">주소</span>
+                        <span class="visit-value">서울 종로구 종로 OO길 OO</span>
+                    </div>
+                    <div class="visit-row">
+                        <span class="visit-label">운영시간</span>
+                        <span class="visit-value">평일 09:00 - 18:00 (주말 예약)</span>
+                    </div>
+                    <div class="visit-row">
+                        <span class="visit-label">전화</span>
+                        <span class="visit-value">02-000-0000</span>
+                    </div>
+                    <div class="visit-row">
+                        <span class="visit-label">주차</span>
+                        <span class="visit-value">인근 공영주차장 이용</span>
+                    </div>
+                </div>
+                <a href="#" class="btn btn-secondary">길찾기</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Form -->
+    <section id="contact" class="contact">
+        <div class="contact-inner">
+            <div class="section-header">
+                <p class="section-label">Inquiry</p>
+                <h2 class="section-title">상담 요청</h2>
+            </div>
+            <form>
+                <div class="form-group">
+                    <label class="form-label">상호 / 성함 *</label>
+                    <input type="text" class="form-input" placeholder="상호 또는 성함을 입력해 주세요">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">연락처 *</label>
+                    <input type="tel" class="form-input" placeholder="연락 가능한 번호를 입력해 주세요">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">관심 품목</label>
+                    <select class="form-select form-input">
+                        <option value="">선택해 주세요</option>
+                        <option value="ring">반지</option>
+                        <option value="necklace">목걸이</option>
+                        <option value="earring">귀걸이</option>
+                        <option value="bracelet">팔찌</option>
+                        <option value="other">기타</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">문의 내용</label>
+                    <textarea class="form-input form-textarea" placeholder="문의 내용을 입력해 주세요"></textarea>
+                </div>
+                <button type="submit" class="form-submit">상담 요청</button>
+                <p class="form-note">영업일 기준 24시간 내 연락드리겠습니다.</p>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div>
+                    <div class="footer-brand">Ju Jewelry</div>
+                    <p class="footer-desc">
+                        30년 전통의 프리미엄 귀금속 도매.<br>
+                        변하지 않는 신뢰로 함께합니다.
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>Products</h4>
+                    <ul>
+                        <li><a href="#">반지</a></li>
+                        <li><a href="#">목걸이</a></li>
+                        <li><a href="#">귀걸이</a></li>
+                        <li><a href="#">팔찌</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">회사 소개</a></li>
+                        <li><a href="#">거래 안내</a></li>
+                        <li><a href="#">오시는 길</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="tel:02-000-0000">02-000-0000</a></li>
+                        <li><a href="#">서울 종로구</a></li>
+                        <li><a href="mailto:info@jujewelry.kr">info@jujewelry.kr</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <div class="footer-legal">
+                    <div>© 2024 Ju Jewelry. All rights reserved.</div>
+                    <div>상호: Ju주얼리 | 대표: 홍길동 | 사업자등록번호: 000-00-00000</div>
+                </div>
+                <div class="footer-links">
+                    <a href="#">개인정보처리방침</a>
+                    <a href="#">이용약관</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

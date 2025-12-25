@@ -1,0 +1,759 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ju주얼리 - Neumorphism</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Neumorphism Color Palette */
+            --color-bg: #e8eef3;
+            --color-bg-dark: #d1d9e6;
+            --color-bg-light: #ffffff;
+            --color-text: #31344b;
+            --color-text-muted: #6c7589;
+            --color-accent: #6366f1;
+            --color-accent-light: #818cf8;
+            --color-gold: #d4a853;
+
+            /* Shadows */
+            --shadow-outer: 8px 8px 16px #c8cfd8, -8px -8px 16px #ffffff;
+            --shadow-outer-sm: 4px 4px 8px #c8cfd8, -4px -4px 8px #ffffff;
+            --shadow-inner: inset 4px 4px 8px #c8cfd8, inset -4px -4px 8px #ffffff;
+            --shadow-pressed: inset 2px 2px 5px #c8cfd8, inset -2px -2px 5px #ffffff;
+
+            /* Typography */
+            --font-main: 'Poppins', sans-serif;
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 6rem;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-bg);
+            color: var(--color-text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Neumorphic Elements */
+        .neu-card {
+            background: var(--color-bg);
+            border-radius: 24px;
+            box-shadow: var(--shadow-outer);
+        }
+
+        .neu-card-pressed {
+            background: var(--color-bg);
+            border-radius: 24px;
+            box-shadow: var(--shadow-inner);
+        }
+
+        /* Back Button */
+        .back-button {
+            position: fixed;
+            top: var(--space-md);
+            left: var(--space-md);
+            z-index: 1000;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-text);
+            text-decoration: none;
+            padding: 12px 24px;
+            background: var(--color-bg);
+            border-radius: 50px;
+            box-shadow: var(--shadow-outer-sm);
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            box-shadow: var(--shadow-pressed);
+        }
+
+        /* Header */
+        header {
+            padding: 24px 0;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 16px 32px;
+            background: var(--color-bg);
+            border-radius: 60px;
+            box-shadow: var(--shadow-outer);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            text-decoration: none;
+        }
+
+        nav {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            nav {
+                display: flex;
+                align-items: center;
+                gap: 8px;
+            }
+        }
+
+        nav a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--color-accent);
+            box-shadow: var(--shadow-pressed);
+        }
+
+        .header-cta {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-bg);
+            text-decoration: none;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
+            border-radius: 50px;
+            box-shadow: 4px 4px 12px rgba(99, 102, 241, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .header-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 6px 6px 20px rgba(99, 102, 241, 0.5);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: var(--space-xl) 0;
+        }
+
+        .hero-grid {
+            display: grid;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .hero-content {
+            text-align: center;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-content {
+                text-align: left;
+            }
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            padding: 10px 24px;
+            background: var(--color-bg);
+            border-radius: 50px;
+            box-shadow: var(--shadow-outer-sm);
+            margin-bottom: var(--space-md);
+        }
+
+        .hero-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            line-height: 1.15;
+            color: var(--color-text);
+            margin-bottom: var(--space-md);
+        }
+
+        .hero-title span {
+            color: var(--color-accent);
+        }
+
+        .hero-desc {
+            font-size: 1.0625rem;
+            color: var(--color-text-muted);
+            max-width: 450px;
+            margin: 0 auto var(--space-lg);
+            line-height: 1.8;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-desc {
+                margin: 0 0 var(--space-lg);
+            }
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-buttons {
+                justify-content: flex-start;
+            }
+        }
+
+        .btn {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 16px 36px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            color: var(--color-bg);
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
+            box-shadow: 6px 6px 16px rgba(99, 102, 241, 0.35);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 8px 8px 24px rgba(99, 102, 241, 0.45);
+        }
+
+        .btn-secondary {
+            color: var(--color-text);
+            background: var(--color-bg);
+            box-shadow: var(--shadow-outer-sm);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: var(--shadow-pressed);
+        }
+
+        /* Hero Visual */
+        .hero-visual {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-circle {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            background: var(--color-bg);
+            box-shadow: var(--shadow-outer);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .hero-circle::before {
+            content: '';
+            position: absolute;
+            inset: 30px;
+            border-radius: 50%;
+            background: var(--color-bg);
+            box-shadow: var(--shadow-inner);
+        }
+
+        .hero-circle-text {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--color-accent);
+            z-index: 1;
+        }
+
+        @media (max-width: 1023px) {
+            .hero-visual {
+                display: none;
+            }
+        }
+
+        /* Stats */
+        .stats {
+            padding: var(--space-lg) 0;
+        }
+
+        .stats-card {
+            padding: var(--space-lg);
+            background: var(--color-bg);
+            border-radius: 32px;
+            box-shadow: var(--shadow-outer);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+        }
+
+        @media (min-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 24px;
+            background: var(--color-bg);
+            border-radius: 20px;
+            box-shadow: var(--shadow-inner);
+        }
+
+        .stat-number {
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: var(--color-accent);
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Features */
+        .features {
+            padding: var(--space-xl) 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-title {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: var(--color-text);
+        }
+
+        .features-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .feature-card {
+            padding: 48px 32px;
+            background: var(--color-bg);
+            border-radius: 28px;
+            box-shadow: var(--shadow-outer);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto var(--space-md);
+            background: var(--color-bg);
+            border-radius: 24px;
+            box-shadow: var(--shadow-inner);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 12px;
+        }
+
+        .feature-desc {
+            font-size: 0.9375rem;
+            color: var(--color-text-muted);
+            line-height: 1.7;
+        }
+
+        /* Products */
+        .products {
+            padding: var(--space-xl) 0;
+        }
+
+        .products-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .product-card {
+            aspect-ratio: 3/4;
+            position: relative;
+            background: var(--color-bg);
+            border-radius: 28px;
+            box-shadow: var(--shadow-outer);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 12px 12px 24px #c8cfd8, -12px -12px 24px #ffffff;
+        }
+
+        .product-visual {
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100px;
+            height: 100px;
+            background: var(--color-bg);
+            border-radius: 50%;
+            box-shadow: var(--shadow-inner);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+        }
+
+        .product-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px;
+            text-align: center;
+        }
+
+        .product-category {
+            font-size: 0.65rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            color: var(--color-accent);
+            margin-bottom: 4px;
+        }
+
+        .product-name {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        /* CTA */
+        .cta {
+            padding: var(--space-xl) 0;
+        }
+
+        .cta-card {
+            padding: var(--space-xl);
+            background: linear-gradient(135deg, var(--color-accent), var(--color-accent-light));
+            border-radius: 32px;
+            text-align: center;
+            box-shadow: 8px 8px 24px rgba(99, 102, 241, 0.3);
+        }
+
+        .cta-title {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 700;
+            color: var(--color-bg);
+            margin-bottom: var(--space-sm);
+        }
+
+        .cta-desc {
+            font-size: 1rem;
+            color: var(--color-bg);
+            opacity: 0.9;
+            max-width: 450px;
+            margin: 0 auto var(--space-lg);
+        }
+
+        .cta-btn {
+            display: inline-block;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--color-accent);
+            text-decoration: none;
+            padding: 16px 40px;
+            background: var(--color-bg);
+            border-radius: 50px;
+            box-shadow: var(--shadow-outer-sm);
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            box-shadow: var(--shadow-pressed);
+        }
+
+        /* Footer */
+        footer {
+            padding: var(--space-lg) 0;
+        }
+
+        .footer-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-md);
+            text-align: center;
+            padding: 32px;
+            background: var(--color-bg);
+            border-radius: 24px;
+            box-shadow: var(--shadow-outer);
+        }
+
+        @media (min-width: 768px) {
+            .footer-inner {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+        }
+
+        .footer-logo {
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: var(--color-accent);
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-nav a {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            text-decoration: none;
+        }
+
+        .footer-nav a:hover {
+            color: var(--color-accent);
+        }
+
+        .footer-copyright {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-button">← Back</a>
+
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <a href="#" class="logo">Ju</a>
+                <nav>
+                    <a href="#features">About</a>
+                    <a href="#products">Collection</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+                <a href="#contact" class="header-cta">Inquire</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <span class="hero-badge">Since 1994</span>
+                    <h1 class="hero-title">
+                        Premium <span>Jewelry</span> for Partners
+                    </h1>
+                    <p class="hero-desc">
+                        30년의 장인 정신으로 완성되는 프리미엄 주얼리.
+                        500개 이상의 파트너사가 신뢰하는 품질.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#products" class="btn btn-primary">Collection</a>
+                        <a href="#features" class="btn btn-secondary">Learn More</a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="hero-circle">
+                        <span class="hero-circle-text">Ju</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="container">
+            <div class="stats-card">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">30</div>
+                        <div class="stat-label">Years</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Partners</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50K+</div>
+                        <div class="stat-label">Products</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24</div>
+                        <div class="stat-label">Craftsmen</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why Choose Us</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">◇</div>
+                    <h3 class="feature-title">Premium Materials</h3>
+                    <p class="feature-desc">99.9% 고순도 귀금속과 엄선된 천연 원석만을 사용합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✦</div>
+                    <h3 class="feature-title">Master Craftsmanship</h3>
+                    <p class="feature-desc">24명의 마스터 장인이 한 점 한 점 정성을 담아 제작합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">◈</div>
+                    <h3 class="feature-title">B2B Partnership</h3>
+                    <p class="feature-desc">안정적인 공급과 합리적인 도매가. 파트너 전용 혜택을 제공합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="products" id="products">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Collection</h2>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-visual">💍</div>
+                    <div class="product-info">
+                        <p class="product-category">Rings</p>
+                        <h3 class="product-name">Eternity Band</h3>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-visual">📿</div>
+                    <div class="product-info">
+                        <p class="product-category">Necklaces</p>
+                        <h3 class="product-name">Classic Pendant</h3>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-visual">✨</div>
+                    <div class="product-info">
+                        <p class="product-category">Earrings</p>
+                        <h3 class="product-name">Drop Diamond</h3>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-visual">⌚</div>
+                    <div class="product-info">
+                        <p class="product-category">Bracelets</p>
+                        <h3 class="product-name">Tennis Bracelet</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="contact">
+        <div class="container">
+            <div class="cta-card">
+                <h2 class="cta-title">Let's Partner Up</h2>
+                <p class="cta-desc">B2B 거래 문의, 쇼룸 방문 예약, 커스텀 오더까지 무엇이든 편하게 연락 주세요.</p>
+                <a href="mailto:partner@jujewelry.co.kr" class="cta-btn">Contact Us →</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <span class="footer-logo">Ju Jewelry</span>
+                <nav class="footer-nav">
+                    <a href="#">About</a>
+                    <a href="#">Collection</a>
+                    <a href="#">Wholesale</a>
+                    <a href="#">Privacy</a>
+                </nav>
+                <p class="footer-copyright">© 2024 Ju Jewelry</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

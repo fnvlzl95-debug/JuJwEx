@@ -1,0 +1,1166 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ju쥬얼리 - 디자인 시안 프로토타입</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Noto+Serif+KR:wght@300;400;500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Serif+JP:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f0f23 100%);
+            padding: 50px 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .selector-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+
+        .selector-header h1 {
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            font-weight: 400;
+            color: #d4af37;
+            letter-spacing: 0.2em;
+            margin-bottom: 15px;
+            text-shadow: 0 0 30px rgba(212, 175, 55, 0.3);
+        }
+
+        .selector-header p {
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.15em;
+        }
+
+        .designs-row {
+            display: flex;
+            gap: 16px;
+            max-width: 1500px;
+            width: 100%;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .design-card {
+            flex: 1;
+            max-width: 220px;
+            min-width: 180px;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
+            text-decoration: none;
+        }
+
+        .design-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(212, 175, 55, 0.5);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3), 0 0 30px rgba(212, 175, 55, 0.1);
+        }
+
+        .design-preview {
+            height: 140px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .design-info {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .design-number {
+            font-family: 'Cinzel', serif;
+            font-size: 0.7rem;
+            color: #d4af37;
+            letter-spacing: 0.2em;
+            margin-bottom: 8px;
+        }
+
+        .design-title {
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1rem;
+            font-weight: 500;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .design-desc {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            line-height: 1.5;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        /* Preview Styles */
+        .preview-editorial {
+            background: linear-gradient(135deg, #faf8f5 50%, #0d0d0d 50%);
+            position: relative;
+        }
+        .preview-editorial::before {
+            content: 'Ju';
+            position: absolute;
+            top: 50%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cinzel', serif;
+            font-size: 2.5rem;
+            color: #c9a227;
+        }
+        .preview-editorial::after {
+            content: '💎';
+            position: absolute;
+            top: 50%;
+            left: 75%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+        }
+
+        .preview-modern {
+            background: linear-gradient(135deg, #fff 0%, #f8f7f5 100%);
+            position: relative;
+        }
+        .preview-modern::before {
+            content: '✧';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 3rem;
+            color: #b76e79;
+        }
+
+        .preview-artdeco {
+            background: #1a3c34;
+            position: relative;
+        }
+        .preview-artdeco::before {
+            content: '';
+            position: absolute;
+            inset: 15px;
+            border: 1px solid #d4a853;
+            opacity: 0.5;
+        }
+        .preview-artdeco::after {
+            content: '◆';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 2rem;
+            color: #d4a853;
+        }
+
+        .preview-showroom {
+            background: linear-gradient(180deg, #222 0%, #111 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .preview-showroom::before {
+            content: 'Jewelry JU';
+            position: absolute;
+            top: 45%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1rem;
+            color: #fff;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+        }
+        .preview-showroom::after {
+            content: 'SHOWROOM';
+            position: absolute;
+            top: 65%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.55rem;
+            color: rgba(255,255,255,0.4);
+            letter-spacing: 0.2em;
+        }
+
+        .preview-wholesale {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .preview-wholesale::before {
+            content: 'JU';
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cinzel', serif;
+            font-size: 2rem;
+            color: #c6a87c;
+            font-weight: 600;
+        }
+        .preview-wholesale::after {
+            content: 'Wholesale & Assets';
+            position: absolute;
+            top: 65%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.6rem;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 0.15em;
+            white-space: nowrap;
+        }
+
+        .preview-liquid {
+            background: linear-gradient(135deg, #0a0e1a 0%, #141829 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .preview-liquid::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            right: 10%;
+            width: 80px;
+            height: 80px;
+            background: radial-gradient(circle, rgba(232, 213, 183, 0.2) 0%, transparent 70%);
+            border-radius: 50%;
+            animation: liquidFloat 4s ease-in-out infinite;
+        }
+        .preview-liquid::after {
+            content: 'Liquid Luxury';
+            position: absolute;
+            bottom: 25%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cinzel', serif;
+            font-size: 0.85rem;
+            color: #e8d5b7;
+            letter-spacing: 0.1em;
+            font-style: italic;
+        }
+        @keyframes liquidFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(-10px, 10px) scale(1.1); }
+        }
+
+        .preview-refined {
+            background: #faf9f7;
+            position: relative;
+        }
+        .preview-refined::before {
+            content: 'Simple';
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            font-style: italic;
+            color: #2c2c2c;
+            font-weight: 400;
+        }
+        .preview-refined::after {
+            content: 'is the ultimate sophistication';
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.5rem;
+            color: #7a7a7a;
+            letter-spacing: 0.1em;
+            white-space: nowrap;
+        }
+
+        .preview-atelier {
+            background: linear-gradient(135deg, #f7f5f2 60%, #ebe7e0 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .preview-atelier::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #a08c5b, transparent);
+        }
+        .preview-atelier::after {
+            content: 'Editorial';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-style: italic;
+            color: #1a1a1a;
+            font-weight: 400;
+            background: #f7f5f2;
+            padding: 8px 16px;
+        }
+
+        .preview-modern-dark {
+            background: linear-gradient(135deg, #0a0a0b 0%, #171719 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .preview-modern-dark::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(to right, rgba(255,255,255,0.04) 1px, transparent 1px),
+                linear-gradient(to bottom, rgba(255,255,255,0.04) 1px, transparent 1px);
+            background-size: 16px 16px;
+        }
+        .preview-modern-dark::after {
+            content: 'JU';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, #c9a962 0%, #e8d5a3 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .preview-pure-minimal {
+            background: #ffffff;
+            position: relative;
+        }
+        .preview-pure-minimal::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #e5e5e5;
+        }
+        .preview-pure-minimal::after {
+            content: 'Ju';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            font-style: italic;
+            color: #171717;
+            background: #ffffff;
+            padding: 4px 12px;
+        }
+
+        .preview-noir-luxe {
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .preview-noir-luxe::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 100px;
+            background: radial-gradient(circle, rgba(201, 169, 98, 0.15) 0%, transparent 70%);
+        }
+        .preview-noir-luxe::after {
+            content: 'J';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cinzel', serif;
+            font-size: 1.8rem;
+            font-weight: 400;
+            color: #c9a962;
+            width: 36px;
+            height: 36px;
+            border: 1px solid #c9a962;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            line-height: 36px;
+            text-align: center;
+        }
+
+        .preview-editorial-mag {
+            background: linear-gradient(135deg, #f8f6f3 50%, #1a1a1a 50%);
+            position: relative;
+        }
+        .preview-editorial-mag::before {
+            content: '01';
+            position: absolute;
+            top: 20%;
+            left: 25%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cinzel', serif;
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #d4d4d4;
+        }
+        .preview-editorial-mag::after {
+            content: 'Ju';
+            position: absolute;
+            top: 55%;
+            left: 70%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            font-weight: 400;
+            font-style: italic;
+            color: #f8f6f3;
+        }
+
+        .preview-neo-brutal {
+            background: #fffef5;
+            position: relative;
+        }
+        .preview-neo-brutal::before {
+            content: 'JU';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #000;
+            background: #ffe156;
+            padding: 8px 16px;
+            border: 3px solid #000;
+            box-shadow: 4px 4px 0px #000;
+        }
+
+        .preview-quiet-luxury {
+            background: linear-gradient(to right, #fdfcfa 55%, #f5f4f1 55%);
+            position: relative;
+        }
+        .preview-quiet-luxury::before {
+            content: '30년';
+            position: absolute;
+            top: 35%;
+            left: 28%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cinzel', serif;
+            font-size: 1rem;
+            font-weight: 300;
+            color: #1a1a1a;
+            letter-spacing: -0.02em;
+        }
+        .preview-quiet-luxury::after {
+            content: '●';
+            position: absolute;
+            top: 60%;
+            left: 28%;
+            transform: translate(-50%, -50%);
+            font-size: 0.4rem;
+            color: #a08c5b;
+        }
+
+        .preview-art-deco {
+            background: #1a3c34;
+            position: relative;
+            overflow: hidden;
+        }
+        .preview-art-deco::before {
+            content: '';
+            position: absolute;
+            inset: 12px;
+            border: 1px solid rgba(212, 168, 83, 0.4);
+        }
+        .preview-art-deco::after {
+            content: 'JU';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cinzel', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: #d4a853;
+            letter-spacing: 0.2em;
+        }
+
+        .preview-zen {
+            background: #f7f5f0;
+            position: relative;
+        }
+        .preview-zen::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 20%;
+            right: 20%;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, #b5a99a, transparent);
+        }
+        .preview-zen::after {
+            content: '珠';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.8rem;
+            color: #1a1a1a;
+            opacity: 0.15;
+        }
+
+        .preview-glass {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .preview-glass::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            right: 10%;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, rgba(201, 169, 98, 0.4) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(10px);
+        }
+        .preview-glass::after {
+            content: 'Ju';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cinzel', serif;
+            font-size: 1.2rem;
+            font-style: italic;
+            color: #c9a962;
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+        }
+
+        .preview-quiet-lux {
+            background: #fdfcfa;
+            position: relative;
+        }
+        .preview-quiet-lux::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            opacity: 0.02;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+        }
+        .preview-quiet-lux::after {
+            content: 'Ju';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Noto Serif KR', serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            color: #2c2c2c;
+            letter-spacing: 0.1em;
+        }
+
+        .preview-apple {
+            background: #ffffff;
+            position: relative;
+        }
+        .preview-apple::before {
+            content: '주얼리';
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 1.2rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #c9a962, #e8d5a3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            letter-spacing: -0.02em;
+        }
+        .preview-apple::after {
+            content: '새로운 기준.';
+            position: absolute;
+            top: 55%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: #1d1d1f;
+            letter-spacing: -0.01em;
+        }
+
+        .preview-gradient {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 30%, #a18cd1 70%, #fbc2eb 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .preview-gradient::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 60px;
+            height: 60px;
+            background: radial-gradient(circle, rgba(255,255,255,0.6) 0%, transparent 70%);
+            border-radius: 50%;
+            filter: blur(10px);
+        }
+        .preview-gradient::after {
+            content: 'Ju';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #1a1a2e;
+            letter-spacing: -0.02em;
+        }
+
+        .preview-swiss {
+            background: #ffffff;
+            position: relative;
+            border: 1px solid #000;
+        }
+        .preview-swiss::before {
+            content: 'JU®';
+            position: absolute;
+            top: 30%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Noto Sans KR', Helvetica, Arial, sans-serif;
+            font-size: 1.8rem;
+            font-weight: 900;
+            color: #000;
+            letter-spacing: -0.03em;
+        }
+        .preview-swiss::after {
+            content: 'PREMIUM JEWELRY';
+            position: absolute;
+            top: 60%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Noto Sans KR', Helvetica, Arial, sans-serif;
+            font-size: 0.45rem;
+            font-weight: 500;
+            color: #525252;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+        }
+
+        .preview-cyber {
+            background: #0a0a0f;
+            position: relative;
+            overflow: hidden;
+        }
+        .preview-cyber::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(0, 245, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 245, 255, 0.05) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .preview-cyber::after {
+            content: 'JU//';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1.4rem;
+            font-weight: 700;
+            color: #00f5ff;
+            text-shadow: 0 0 10px rgba(0, 245, 255, 0.8), 0 0 20px rgba(0, 245, 255, 0.5);
+            letter-spacing: 0.1em;
+        }
+
+        .preview-retro {
+            background: linear-gradient(135deg, #e07b39 0%, #d4a574 50%, #6b7c5c 100%);
+            position: relative;
+        }
+        .preview-retro::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70px;
+            height: 70px;
+            border: 3px solid rgba(250, 246, 240, 0.5);
+            border-radius: 50%;
+        }
+        .preview-retro::after {
+            content: 'Ju';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Noto Serif KR', Georgia, serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-style: italic;
+            color: #faf6f0;
+        }
+
+        .preview-bauhaus {
+            background: #ffffff;
+            position: relative;
+            overflow: hidden;
+        }
+        .preview-bauhaus::before {
+            content: '';
+            position: absolute;
+            top: 20%;
+            left: 20%;
+            width: 40px;
+            height: 40px;
+            background: #fdd835;
+            border-radius: 50%;
+        }
+        .preview-bauhaus::after {
+            content: '';
+            position: absolute;
+            top: 45%;
+            right: 25%;
+            width: 35px;
+            height: 35px;
+            background: #e53935;
+        }
+        .preview-bauhaus .triangle {
+            position: absolute;
+            bottom: 25%;
+            left: 35%;
+            width: 0;
+            height: 0;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 35px solid #1e88e5;
+        }
+
+        .preview-memphis {
+            background: #ffe066;
+            position: relative;
+            overflow: hidden;
+        }
+        .preview-memphis::before {
+            content: '';
+            position: absolute;
+            top: 15%;
+            left: 15%;
+            width: 30px;
+            height: 30px;
+            border: 4px solid #ff6b9d;
+            border-radius: 50%;
+        }
+        .preview-memphis::after {
+            content: 'JU';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: #1a1a2e;
+            letter-spacing: 0.05em;
+        }
+
+        .preview-neumorphism {
+            background: #e0e5ec;
+            position: relative;
+        }
+        .preview-neumorphism::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: #e0e5ec;
+            box-shadow: 8px 8px 16px #a3b1c6, -8px -8px 16px #ffffff;
+        }
+        .preview-neumorphism::after {
+            content: 'Ju';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: #4a5568;
+        }
+
+        .preview-vaporwave {
+            background: linear-gradient(180deg, #0d0221 0%, #1a0533 50%, #2d1b4e 100%);
+            position: relative;
+            overflow: hidden;
+        }
+        .preview-vaporwave::before {
+            content: '';
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 30px;
+            background: linear-gradient(180deg, #ff6b9d 0%, #ff9a56 100%);
+            border-radius: 60px 60px 0 0;
+        }
+        .preview-vaporwave::after {
+            content: 'Ju';
+            position: absolute;
+            top: 35%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Noto Sans KR', sans-serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #00f5ff, #ff6b9d);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .preview-academia {
+            background: #722F37;
+            position: relative;
+            overflow: hidden;
+        }
+        .preview-academia::before {
+            content: '';
+            position: absolute;
+            inset: 12px;
+            border: 1px solid rgba(184, 134, 11, 0.4);
+        }
+        .preview-academia::after {
+            content: 'Ju';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-family: 'Playfair Display', Georgia, serif;
+            font-size: 1.4rem;
+            font-weight: 400;
+            font-style: italic;
+            color: #f4f1e8;
+            letter-spacing: 0.05em;
+        }
+
+        @media (max-width: 1100px) {
+            .design-card {
+                max-width: calc(33.333% - 12px);
+            }
+        }
+
+        @media (max-width: 700px) {
+            .design-card {
+                max-width: calc(50% - 8px);
+                min-width: calc(50% - 8px);
+            }
+            .selector-header h1 {
+                font-size: 1.8rem;
+            }
+        }
+
+        @media (max-width: 450px) {
+            .design-card {
+                max-width: 100%;
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="selector-header">
+        <h1>Ju JEWELRY</h1>
+        <p>DESIGN PROTOTYPE</p>
+    </div>
+
+    <div class="designs-row">
+        <a class="design-card" href="design1.html">
+            <div class="design-preview preview-editorial"></div>
+            <div class="design-info">
+                <div class="design-number">01</div>
+                <h3 class="design-title">에디토리얼 매거진</h3>
+                <p class="design-desc">패션 매거진 스타일, 대담한 레이아웃</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design2.html">
+            <div class="design-preview preview-modern"></div>
+            <div class="design-info">
+                <div class="design-number">02</div>
+                <h3 class="design-title">모던 미니멀</h3>
+                <p class="design-desc">화이트 스페이스, 로즈골드 악센트</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design3.html">
+            <div class="design-preview preview-artdeco"></div>
+            <div class="design-info">
+                <div class="design-number">03</div>
+                <h3 class="design-title">아트데코 클래식</h3>
+                <p class="design-desc">딥그린과 골드, 기하학적 패턴</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design4.html">
+            <div class="design-preview preview-showroom"></div>
+            <div class="design-info">
+                <div class="design-number">04</div>
+                <h3 class="design-title">Showroom</h3>
+                <p class="design-desc">비디오 히어로, 쇼룸형 갤러리</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design5.html">
+            <div class="design-preview preview-wholesale"></div>
+            <div class="design-info">
+                <div class="design-number">05</div>
+                <h3 class="design-title">Wholesale & Assets</h3>
+                <p class="design-desc">다크 에디토리얼, 금 시세 티커</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design6.html">
+            <div class="design-preview preview-liquid"></div>
+            <div class="design-info">
+                <div class="design-number">06</div>
+                <h3 class="design-title">Liquid Luxury</h3>
+                <p class="design-desc">유기적 곡선, 커스텀 커서</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design7.html">
+            <div class="design-preview preview-refined"></div>
+            <div class="design-info">
+                <div class="design-number">07</div>
+                <h3 class="design-title">Refined Simplicity</h3>
+                <p class="design-desc">밝고 정제된 미니멀리즘</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design8.html">
+            <div class="design-preview preview-atelier"></div>
+            <div class="design-info">
+                <div class="design-number">08</div>
+                <h3 class="design-title">Editorial Atelier</h3>
+                <p class="design-desc">비대칭 레이아웃, 에디토리얼</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design9.html">
+            <div class="design-preview preview-modern-dark"></div>
+            <div class="design-info">
+                <div class="design-number">09</div>
+                <h3 class="design-title">Modern Dark</h3>
+                <p class="design-desc">다크 테마, 그리드 패턴, 글래스모피즘</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design10.html">
+            <div class="design-preview preview-pure-minimal"></div>
+            <div class="design-info">
+                <div class="design-number">10</div>
+                <h3 class="design-title">Pure Minimal</h3>
+                <p class="design-desc">화이트 미니멀, 세리프 타이포그래피</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design11.html">
+            <div class="design-preview preview-noir-luxe"></div>
+            <div class="design-info">
+                <div class="design-number">11</div>
+                <h3 class="design-title">Noir Luxe</h3>
+                <p class="design-desc">럭셔리 다크, 골드 악센트</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design12.html">
+            <div class="design-preview preview-editorial-mag"></div>
+            <div class="design-info">
+                <div class="design-number">12</div>
+                <h3 class="design-title">Editorial</h3>
+                <p class="design-desc">매거진 스타일, 비대칭 레이아웃</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design13.html">
+            <div class="design-preview preview-neo-brutal"></div>
+            <div class="design-info">
+                <div class="design-number">13</div>
+                <h3 class="design-title">Neo Brutal</h3>
+                <p class="design-desc">네오브루탈리즘, 굵은 테두리</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design14.html">
+            <div class="design-preview preview-quiet-luxury"></div>
+            <div class="design-info">
+                <div class="design-number">14</div>
+                <h3 class="design-title">Quiet Luxury</h3>
+                <p class="design-desc">B2B 도매, 절제된 고급감</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design15.html">
+            <div class="design-preview preview-art-deco"></div>
+            <div class="design-info">
+                <div class="design-number">15</div>
+                <h3 class="design-title">Art Deco</h3>
+                <p class="design-desc">딥그린/골드, 기하학적 패턴</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design16.html">
+            <div class="design-preview preview-zen"></div>
+            <div class="design-info">
+                <div class="design-number">16</div>
+                <h3 class="design-title">Japanese Zen</h3>
+                <p class="design-desc">여백의 미학, 자연적 균형</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design17.html">
+            <div class="design-preview preview-glass"></div>
+            <div class="design-info">
+                <div class="design-number">17</div>
+                <h3 class="design-title">Glassmorphism</h3>
+                <p class="design-desc">반투명 유리 효과, 미래적 디자인</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design18.html">
+            <div class="design-preview preview-quiet-lux"></div>
+            <div class="design-info">
+                <div class="design-number">18</div>
+                <h3 class="design-title">Quiet Luxury II</h3>
+                <p class="design-desc">아이보리 배경, 세리프 폰트, 린넨 텍스처</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design19.html">
+            <div class="design-preview preview-apple"></div>
+            <div class="design-info">
+                <div class="design-number">19</div>
+                <h3 class="design-title">Apple Style</h3>
+                <p class="design-desc">클린 UI, SF 폰트, 프리미엄 테크</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design20.html">
+            <div class="design-preview preview-gradient"></div>
+            <div class="design-info">
+                <div class="design-number">20</div>
+                <h3 class="design-title">Gradient Mesh</h3>
+                <p class="design-desc">부드러운 그라디언트, 모던 트렌디</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design21.html">
+            <div class="design-preview preview-swiss"></div>
+            <div class="design-info">
+                <div class="design-number">21</div>
+                <h3 class="design-title">Swiss Typography</h3>
+                <p class="design-desc">그리드 기반, 대담한 타이포그래피</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design22.html">
+            <div class="design-preview preview-cyber"></div>
+            <div class="design-info">
+                <div class="design-number">22</div>
+                <h3 class="design-title">Cyberpunk Neon</h3>
+                <p class="design-desc">네온 컬러, 스캔라인, 미래적 UI</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design23.html">
+            <div class="design-preview preview-retro"></div>
+            <div class="design-info">
+                <div class="design-number">23</div>
+                <h3 class="design-title">Retro 70s</h3>
+                <p class="design-desc">오렌지/브라운, 빈티지 무드</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design24.html">
+            <div class="design-preview preview-bauhaus"></div>
+            <div class="design-info">
+                <div class="design-number">24</div>
+                <h3 class="design-title">Bauhaus</h3>
+                <p class="design-desc">기하학적 도형, 원색, 모던 아트</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design25.html">
+            <div class="design-preview preview-memphis"></div>
+            <div class="design-info">
+                <div class="design-number">25</div>
+                <h3 class="design-title">Memphis Design</h3>
+                <p class="design-desc">80년대 팝, 기하학 패턴, 비비드 컬러</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design26.html">
+            <div class="design-preview preview-neumorphism"></div>
+            <div class="design-info">
+                <div class="design-number">26</div>
+                <h3 class="design-title">Neumorphism</h3>
+                <p class="design-desc">소프트 UI, 엠보싱 효과</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design27.html">
+            <div class="design-preview preview-vaporwave"></div>
+            <div class="design-info">
+                <div class="design-number">27</div>
+                <h3 class="design-title">Vaporwave</h3>
+                <p class="design-desc">90년대 레트로퓨처, 네온 핑크/시안</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design28.html">
+            <div class="design-preview preview-academia"></div>
+            <div class="design-info">
+                <div class="design-number">28</div>
+                <h3 class="design-title">Dark Academia</h3>
+                <p class="design-desc">고전 학술풍, 버건디/골드, 세리프</p>
+            </div>
+        </a>
+    </div>
+</body>
+</html>

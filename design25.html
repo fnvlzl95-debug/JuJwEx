@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ju주얼리 - Memphis Design</title>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Memphis Color Palette */
+            --color-pink: #ff6b9d;
+            --color-yellow: #ffd93d;
+            --color-mint: #6bcb77;
+            --color-blue: #4d96ff;
+            --color-purple: #9b59b6;
+            --color-orange: #ff8c42;
+            --color-black: #2d2d2d;
+            --color-white: #ffffff;
+            --color-cream: #fff8e7;
+
+            /* Typography */
+            --font-main: 'Rubik', sans-serif;
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 6rem;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-cream);
+            color: var(--color-black);
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Memphis Pattern Background */
+        .memphis-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            opacity: 0.15;
+            background-image:
+                url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='10' cy='10' r='4' fill='%23ff6b9d'/%3E%3Crect x='40' y='5' width='8' height='8' fill='%234d96ff' transform='rotate(45 44 9)'/%3E%3Cpath d='M5 40 L15 55 L25 40 Z' fill='%23ffd93d'/%3E%3Cline x1='45' y1='35' x2='55' y2='55' stroke='%236bcb77' stroke-width='3'/%3E%3C/svg%3E");
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Back Button */
+        .back-button {
+            position: fixed;
+            top: var(--space-md);
+            left: var(--space-md);
+            z-index: 1000;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--color-black);
+            text-decoration: none;
+            padding: 12px 24px;
+            background: var(--color-yellow);
+            border: 3px solid var(--color-black);
+            border-radius: 50px;
+            box-shadow: 4px 4px 0 var(--color-black);
+            transition: all 0.2s ease;
+        }
+
+        .back-button:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--color-black);
+        }
+
+        /* Header */
+        header {
+            padding: 20px 0;
+            border-bottom: 4px solid var(--color-black);
+            background: var(--color-white);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 900;
+            color: var(--color-black);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo-dot {
+            width: 20px;
+            height: 20px;
+            background: var(--color-pink);
+            border-radius: 50%;
+            border: 3px solid var(--color-black);
+        }
+
+        nav {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            nav {
+                display: flex;
+                align-items: center;
+                gap: 32px;
+            }
+        }
+
+        nav a {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--color-black);
+            text-decoration: none;
+            text-transform: uppercase;
+            padding: 8px 16px;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+        }
+
+        nav a:hover {
+            background: var(--color-mint);
+        }
+
+        .header-cta {
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--color-white);
+            text-decoration: none;
+            padding: 12px 28px;
+            background: var(--color-pink);
+            border: 3px solid var(--color-black);
+            border-radius: 50px;
+            box-shadow: 4px 4px 0 var(--color-black);
+            transition: all 0.2s ease;
+        }
+
+        .header-cta:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--color-black);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: var(--space-xl) 0;
+            position: relative;
+        }
+
+        .hero-grid {
+            display: grid;
+            gap: var(--space-lg);
+            align-items: center;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--color-black);
+            background: var(--color-yellow);
+            padding: 8px 20px;
+            border: 3px solid var(--color-black);
+            border-radius: 50px;
+            margin-bottom: var(--space-md);
+            transform: rotate(-2deg);
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 8vw, 5rem);
+            font-weight: 900;
+            line-height: 1.05;
+            color: var(--color-black);
+            margin-bottom: var(--space-md);
+        }
+
+        .hero-title .highlight {
+            display: inline-block;
+            background: var(--color-pink);
+            padding: 0 16px;
+            transform: rotate(1deg);
+        }
+
+        .hero-desc {
+            font-size: 1.125rem;
+            color: var(--color-black);
+            opacity: 0.8;
+            max-width: 450px;
+            margin-bottom: var(--space-lg);
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-size: 0.875rem;
+            font-weight: 700;
+            text-decoration: none;
+            padding: 16px 32px;
+            border: 3px solid var(--color-black);
+            border-radius: 50px;
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+        }
+
+        .btn-primary {
+            color: var(--color-white);
+            background: var(--color-blue);
+            box-shadow: 4px 4px 0 var(--color-black);
+        }
+
+        .btn-primary:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--color-black);
+        }
+
+        .btn-secondary {
+            color: var(--color-black);
+            background: var(--color-white);
+            box-shadow: 4px 4px 0 var(--color-black);
+        }
+
+        .btn-secondary:hover {
+            background: var(--color-mint);
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--color-black);
+        }
+
+        /* Memphis Shapes */
+        .hero-shapes {
+            position: relative;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .shape {
+            position: absolute;
+            border: 3px solid var(--color-black);
+        }
+
+        .shape-circle {
+            width: 180px;
+            height: 180px;
+            background: var(--color-yellow);
+            border-radius: 50%;
+            top: 10%;
+            left: 10%;
+        }
+
+        .shape-square {
+            width: 120px;
+            height: 120px;
+            background: var(--color-pink);
+            top: 50%;
+            right: 10%;
+            transform: rotate(15deg);
+        }
+
+        .shape-triangle {
+            width: 0;
+            height: 0;
+            border-left: 60px solid transparent;
+            border-right: 60px solid transparent;
+            border-bottom: 100px solid var(--color-mint);
+            border-top: none;
+            border-left-color: transparent;
+            border-right-color: transparent;
+            bottom: 10%;
+            left: 30%;
+        }
+
+        .shape-zigzag {
+            width: 80px;
+            height: 60px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--color-blue) 0px,
+                var(--color-blue) 10px,
+                transparent 10px,
+                transparent 20px
+            );
+            top: 30%;
+            right: 30%;
+            border: none;
+        }
+
+        .hero-shapes-text {
+            font-size: 4rem;
+            font-weight: 900;
+            color: var(--color-black);
+            z-index: 1;
+        }
+
+        @media (max-width: 1023px) {
+            .hero-shapes {
+                display: none;
+            }
+        }
+
+        /* Stats */
+        .stats {
+            padding: var(--space-lg) 0;
+            background: var(--color-blue);
+            border-top: 4px solid var(--color-black);
+            border-bottom: 4px solid var(--color-black);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+        }
+
+        @media (min-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .stat-item {
+            text-align: center;
+            color: var(--color-white);
+        }
+
+        .stat-number {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 900;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            opacity: 0.9;
+        }
+
+        /* Features */
+        .features {
+            padding: var(--space-xl) 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 900;
+            display: inline-block;
+            background: var(--color-yellow);
+            padding: 8px 32px;
+            border: 3px solid var(--color-black);
+            transform: rotate(-1deg);
+        }
+
+        .features-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .feature-card {
+            padding: 40px 32px;
+            background: var(--color-white);
+            border: 3px solid var(--color-black);
+            border-radius: 20px;
+            text-align: center;
+            box-shadow: 6px 6px 0 var(--color-black);
+            transition: all 0.2s ease;
+        }
+
+        .feature-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 10px 10px 0 var(--color-black);
+        }
+
+        .feature-card:nth-child(1) { background: var(--color-pink); color: var(--color-white); }
+        .feature-card:nth-child(2) { background: var(--color-mint); }
+        .feature-card:nth-child(3) { background: var(--color-yellow); }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto var(--space-md);
+            background: var(--color-white);
+            border: 3px solid var(--color-black);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+        }
+
+        .feature-card:nth-child(1) .feature-icon { background: var(--color-yellow); }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 800;
+            margin-bottom: 12px;
+        }
+
+        .feature-desc {
+            font-size: 0.9375rem;
+            line-height: 1.7;
+            opacity: 0.9;
+        }
+
+        /* Products */
+        .products {
+            padding: var(--space-xl) 0;
+            background: var(--color-white);
+            border-top: 4px solid var(--color-black);
+        }
+
+        .products-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .product-card {
+            aspect-ratio: 3/4;
+            position: relative;
+            border: 3px solid var(--color-black);
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            box-shadow: 6px 6px 0 var(--color-black);
+            transition: all 0.2s ease;
+        }
+
+        .product-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 10px 10px 0 var(--color-black);
+        }
+
+        .product-card:nth-child(1) { background: var(--color-yellow); }
+        .product-card:nth-child(2) { background: var(--color-pink); }
+        .product-card:nth-child(3) { background: var(--color-mint); }
+        .product-card:nth-child(4) { background: var(--color-blue); }
+
+        .product-visual {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+        }
+
+        .product-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 20px;
+            background: var(--color-white);
+            border-top: 3px solid var(--color-black);
+        }
+
+        .product-category {
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--color-pink);
+            margin-bottom: 4px;
+        }
+
+        .product-name {
+            font-size: 1.125rem;
+            font-weight: 800;
+        }
+
+        /* CTA */
+        .cta {
+            padding: var(--space-xl) 0;
+            background: var(--color-purple);
+            border-top: 4px solid var(--color-black);
+        }
+
+        .cta-inner {
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 900;
+            color: var(--color-white);
+            margin-bottom: var(--space-sm);
+        }
+
+        .cta-desc {
+            font-size: 1rem;
+            color: var(--color-white);
+            opacity: 0.9;
+            margin-bottom: var(--space-lg);
+        }
+
+        .cta-btn {
+            display: inline-block;
+            font-size: 0.875rem;
+            font-weight: 700;
+            color: var(--color-black);
+            text-decoration: none;
+            padding: 16px 40px;
+            background: var(--color-yellow);
+            border: 3px solid var(--color-black);
+            border-radius: 50px;
+            box-shadow: 4px 4px 0 var(--color-black);
+            text-transform: uppercase;
+            transition: all 0.2s ease;
+        }
+
+        .cta-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 6px 6px 0 var(--color-black);
+        }
+
+        /* Footer */
+        footer {
+            padding: var(--space-lg) 0;
+            background: var(--color-white);
+            border-top: 4px solid var(--color-black);
+        }
+
+        .footer-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-md);
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .footer-inner {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+        }
+
+        .footer-logo {
+            font-size: 1.25rem;
+            font-weight: 900;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-nav a {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--color-black);
+            text-decoration: none;
+            text-transform: uppercase;
+        }
+
+        .footer-nav a:hover {
+            color: var(--color-pink);
+        }
+
+        .footer-copyright {
+            font-size: 0.75rem;
+            opacity: 0.6;
+        }
+    </style>
+</head>
+<body>
+    <div class="memphis-bg"></div>
+
+    <a href="index.html" class="back-button">← Back</a>
+
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <a href="#" class="logo">
+                    <span class="logo-dot"></span>
+                    JU
+                </a>
+                <nav>
+                    <a href="#features">About</a>
+                    <a href="#products">Shop</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+                <a href="#contact" class="header-cta">Let's Talk!</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-grid">
+                <div class="hero-content">
+                    <span class="hero-badge">✨ Since 1994</span>
+                    <h1 class="hero-title">
+                        Totally <span class="highlight">Rad</span> Jewelry!
+                    </h1>
+                    <p class="hero-desc">
+                        30년의 장인 정신으로 완성되는 프리미엄 주얼리.
+                        500개 이상의 파트너사가 신뢰하는 품질.
+                    </p>
+                    <div class="hero-buttons">
+                        <a href="#products" class="btn btn-primary">Shop Now</a>
+                        <a href="#features" class="btn btn-secondary">Learn More</a>
+                    </div>
+                </div>
+                <div class="hero-shapes">
+                    <div class="shape shape-circle"></div>
+                    <div class="shape shape-square"></div>
+                    <div class="shape shape-triangle"></div>
+                    <div class="shape shape-zigzag"></div>
+                    <span class="hero-shapes-text">Ju</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">30</div>
+                    <div class="stat-label">Years</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Partners</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Products</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24</div>
+                    <div class="stat-label">Craftsmen</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Why We're Awesome!</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">◇</div>
+                    <h3 class="feature-title">Premium</h3>
+                    <p class="feature-desc">99.9% 고순도 귀금속과 천연 원석만을 사용합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✦</div>
+                    <h3 class="feature-title">Crafted</h3>
+                    <p class="feature-desc">24명의 마스터 장인이 정성을 담아 제작합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">◈</div>
+                    <h3 class="feature-title">Partners</h3>
+                    <p class="feature-desc">안정적인 공급과 합리적인 도매가를 제공합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="products" id="products">
+        <div class="container">
+            <div class="section-header">
+                <h2 class="section-title">Fresh Collection</h2>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-visual">💍</div>
+                    <div class="product-info">
+                        <p class="product-category">Rings</p>
+                        <h3 class="product-name">Eternity Band</h3>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-visual">📿</div>
+                    <div class="product-info">
+                        <p class="product-category">Necklaces</p>
+                        <h3 class="product-name">Classic Pendant</h3>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-visual">✨</div>
+                    <div class="product-info">
+                        <p class="product-category">Earrings</p>
+                        <h3 class="product-name">Drop Diamond</h3>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-visual">⌚</div>
+                    <div class="product-info">
+                        <p class="product-category">Bracelets</p>
+                        <h3 class="product-name">Tennis Bracelet</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="contact">
+        <div class="container">
+            <div class="cta-inner">
+                <h2 class="cta-title">Let's Be Partners!</h2>
+                <p class="cta-desc">B2B 거래 문의, 쇼룸 방문 예약, 커스텀 오더까지 무엇이든 편하게 연락 주세요.</p>
+                <a href="mailto:partner@jujewelry.co.kr" class="cta-btn">Contact Us →</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <span class="footer-logo">Ju Jewelry</span>
+                <nav class="footer-nav">
+                    <a href="#">About</a>
+                    <a href="#">Collection</a>
+                    <a href="#">Wholesale</a>
+                    <a href="#">Privacy</a>
+                </nav>
+                <p class="footer-copyright">© 2024 Ju Jewelry</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

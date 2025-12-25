@@ -1,0 +1,1003 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JU Jewelry — Noir Luxe</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #0a0a0a;
+            --noir: #111111;
+            --charcoal: #1a1a1a;
+            --dark-gray: #2a2a2a;
+            --gray: #888888;
+            --light-gray: #cccccc;
+            --off-white: #f5f5f0;
+            --white: #ffffff;
+            --gold: #c9a962;
+            --gold-light: #e8d5a3;
+            --gold-dark: #a08840;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background: var(--black);
+            color: var(--light-gray);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        ::selection {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        /* Back Button */
+        .back-btn {
+            position: fixed;
+            top: 100px;
+            left: 32px;
+            z-index: 1000;
+            padding: 10px 20px;
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(201, 169, 98, 0.2);
+            color: var(--gold);
+            font-size: 12px;
+            letter-spacing: 0.05em;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .back-btn:hover {
+            background: rgba(201, 169, 98, 0.1);
+            border-color: var(--gold);
+        }
+
+        /* Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            height: 80px;
+            background: rgba(10, 10, 10, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(201, 169, 98, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 60px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border: 1px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-icon span {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            color: var(--gold);
+        }
+
+        .logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 400;
+            color: var(--white);
+            letter-spacing: 0.1em;
+        }
+
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 48px;
+        }
+
+        nav a {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--gold);
+        }
+
+        .nav-cta {
+            padding: 12px 28px;
+            background: transparent;
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+        }
+
+        .nav-cta:hover {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 80% 60% at 50% 40%, rgba(201, 169, 98, 0.08) 0%, transparent 60%);
+        }
+
+        .hero-content {
+            text-align: center;
+            position: relative;
+            z-index: 10;
+            padding: 0 24px;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 40px;
+        }
+
+        .hero-eyebrow::before,
+        .hero-eyebrow::after {
+            content: '';
+            width: 60px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold));
+        }
+
+        .hero-eyebrow::after {
+            background: linear-gradient(90deg, var(--gold), transparent);
+        }
+
+        .hero-eyebrow span {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
+
+        .hero-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 400;
+            line-height: 1.1;
+            color: var(--white);
+            letter-spacing: 0.02em;
+            margin-bottom: 32px;
+        }
+
+        .hero-title em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--gray);
+            max-width: 500px;
+            margin: 0 auto 48px;
+            line-height: 1.9;
+            letter-spacing: 0.02em;
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 18px 40px;
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            text-decoration: none;
+            transition: all 0.4s ease;
+        }
+
+        .btn-gold {
+            background: var(--gold);
+            color: var(--black);
+        }
+
+        .btn-gold:hover {
+            background: var(--gold-light);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--light-gray);
+            border: 1px solid var(--dark-gray);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+            color: var(--gray);
+        }
+
+        .scroll-indicator span {
+            font-size: 10px;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            animation: scrollPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+
+        /* Features Section */
+        .features {
+            padding: 140px 60px;
+            background: var(--noir);
+        }
+
+        .features-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .section-label {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 20px;
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            color: var(--white);
+            letter-spacing: 0.02em;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        .feature-card {
+            padding: 48px 40px;
+            background: var(--charcoal);
+            border: 1px solid var(--dark-gray);
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--gold);
+            transform: translateY(-4px);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 28px;
+        }
+
+        .feature-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 500;
+            color: var(--white);
+            margin-bottom: 16px;
+        }
+
+        .feature-desc {
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--gray);
+            line-height: 1.8;
+        }
+
+        /* Products Section */
+        .products {
+            padding: 140px 60px;
+            background: var(--black);
+        }
+
+        .products-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .products-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 60px;
+        }
+
+        .view-all {
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            color: var(--gold);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: gap 0.3s ease;
+        }
+
+        .view-all:hover {
+            gap: 16px;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
+        }
+
+        .product-card {
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .product-image {
+            aspect-ratio: 3/4;
+            background: var(--charcoal);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            transition: all 0.5s ease;
+        }
+
+        .product-card:hover .product-image {
+            background: var(--dark-gray);
+        }
+
+        .product-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px;
+            background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+            transform: translateY(100%);
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover .product-overlay {
+            transform: translateY(0);
+        }
+
+        .product-category {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 8px;
+        }
+
+        .product-name {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            font-weight: 400;
+            color: var(--white);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 100px 60px;
+            background: var(--noir);
+            border-top: 1px solid var(--dark-gray);
+            border-bottom: 1px solid var(--dark-gray);
+        }
+
+        .stats-inner {
+            max-width: 1000px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 40px;
+        }
+
+        .stat-item {
+            text-align: center;
+            position: relative;
+        }
+
+        .stat-item:not(:last-child)::after {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 1px;
+            height: 60px;
+            background: var(--dark-gray);
+        }
+
+        .stat-value {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 400;
+            color: var(--gold);
+            line-height: 1;
+            margin-bottom: 12px;
+        }
+
+        .stat-label {
+            font-size: 11px;
+            font-weight: 400;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--gray);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: 160px 60px;
+            background: var(--black);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse 60% 80% at 50% 100%, rgba(201, 169, 98, 0.1) 0%, transparent 60%);
+        }
+
+        .cta-inner {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .cta-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+            color: var(--white);
+            margin-bottom: 20px;
+        }
+
+        .cta-title em {
+            font-style: italic;
+            color: var(--gold);
+        }
+
+        .cta-desc {
+            font-size: 1rem;
+            font-weight: 300;
+            color: var(--gray);
+            margin-bottom: 48px;
+            line-height: 1.8;
+        }
+
+        /* Footer */
+        footer {
+            padding: 80px 60px 40px;
+            background: var(--noir);
+            border-top: 1px solid var(--dark-gray);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-top {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 60px;
+            padding-bottom: 60px;
+            border-bottom: 1px solid var(--dark-gray);
+        }
+
+        .footer-brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+
+        .footer-brand-icon {
+            width: 32px;
+            height: 32px;
+            border: 1px solid var(--gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Playfair Display', serif;
+            font-size: 0.9rem;
+            color: var(--gold);
+        }
+
+        .footer-brand-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.1rem;
+            color: var(--white);
+            letter-spacing: 0.1em;
+        }
+
+        .footer-desc {
+            font-size: 13px;
+            font-weight: 300;
+            color: var(--gray);
+            line-height: 1.8;
+            max-width: 280px;
+        }
+
+        .footer-col h4 {
+            font-size: 10px;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--gold);
+            margin-bottom: 24px;
+        }
+
+        .footer-col ul {
+            list-style: none;
+        }
+
+        .footer-col li {
+            margin-bottom: 14px;
+        }
+
+        .footer-col a {
+            font-size: 13px;
+            font-weight: 300;
+            color: var(--gray);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-col a:hover {
+            color: var(--gold);
+        }
+
+        .footer-bottom {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding-top: 32px;
+            font-size: 12px;
+            color: var(--gray);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .footer-links a {
+            color: var(--gray);
+            text-decoration: none;
+            font-weight: 300;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--gold);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            header {
+                padding: 0 32px;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+                gap: 24px;
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-inner {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 48px;
+            }
+
+            .stat-item:not(:last-child)::after {
+                display: none;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr 1fr;
+                gap: 40px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                padding: 0 24px;
+                height: 72px;
+            }
+
+            nav a:not(.nav-cta) {
+                display: none;
+            }
+
+            .back-btn {
+                left: 20px;
+                top: 92px;
+            }
+
+            .features,
+            .products,
+            .cta {
+                padding: 100px 24px;
+            }
+
+            .stats {
+                padding: 80px 24px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                width: 100%;
+                max-width: 280px;
+                margin: 0 auto;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            footer {
+                padding: 60px 24px 32px;
+            }
+
+            .footer-top {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                gap: 20px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                padding: 0 20px;
+                height: 64px;
+            }
+
+            .logo-icon {
+                width: 32px;
+                height: 32px;
+            }
+
+            .logo-icon span {
+                font-size: 1rem;
+            }
+
+            .logo-text {
+                font-size: 1.1rem;
+            }
+
+            .nav-cta {
+                padding: 10px 20px;
+                font-size: 9px;
+            }
+
+            .back-btn {
+                left: 16px;
+                top: 84px;
+                padding: 8px 16px;
+                font-size: 11px;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-eyebrow::before,
+            .hero-eyebrow::after {
+                width: 30px;
+            }
+
+            .scroll-indicator {
+                display: none;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .products-grid {
+                gap: 16px;
+            }
+
+            .product-overlay {
+                transform: translateY(0);
+                padding: 16px;
+            }
+
+            .stat-value {
+                font-size: 2.5rem;
+            }
+
+            .cta {
+                padding: 80px 20px;
+            }
+
+            footer {
+                padding: 48px 20px 28px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <a href="index.html" class="back-btn">← 시안 선택으로</a>
+
+    <header>
+        <a href="#" class="logo">
+            <div class="logo-icon"><span>J</span></div>
+            <span class="logo-text">JU JEWELRY</span>
+        </a>
+        <nav>
+            <a href="#features">Heritage</a>
+            <a href="#products">Collection</a>
+            <a href="#contact">Contact</a>
+            <a href="#contact" class="nav-cta">Inquire</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-bg"></div>
+        <div class="hero-content">
+            <div class="hero-eyebrow">
+                <span>Since 1994</span>
+            </div>
+            <h1 class="hero-title">
+                Timeless <em>Elegance</em><br>Crafted in Gold
+            </h1>
+            <p class="hero-desc">
+                30년 장인 정신으로 빚어낸 프리미엄 귀금속.<br>
+                당신만을 위한 특별한 가치를 선사합니다.
+            </p>
+            <div class="hero-actions">
+                <a href="#contact" class="btn btn-gold">파트너 문의</a>
+                <a href="#products" class="btn btn-outline">컬렉션 보기</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <section id="features" class="features">
+        <div class="features-inner">
+            <div class="section-header">
+                <p class="section-label">Our Heritage</p>
+                <h2 class="section-title">세대를 잇는 장인 정신</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">💎</div>
+                    <h3 class="feature-title">GIA Certified</h3>
+                    <p class="feature-desc">국제 표준 인증 다이아몬드로 신뢰할 수 있는 품질을 보장합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3 class="feature-title">Direct Partnership</h3>
+                    <p class="feature-desc">제조사 직거래 시스템으로 최적의 가격과 품질을 제공합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✨</div>
+                    <h3 class="feature-title">Bespoke Service</h3>
+                    <p class="feature-desc">전담 담당자 배정으로 파트너 맞춤 서비스를 제공합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="stats-inner">
+            <div class="stat-item">
+                <div class="stat-value">30</div>
+                <div class="stat-label">Years of Legacy</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">5K+</div>
+                <div class="stat-label">Partner Stores</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">50K</div>
+                <div class="stat-label">Curated Pieces</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-value">99%</div>
+                <div class="stat-label">Satisfaction</div>
+            </div>
+        </div>
+    </section>
+
+    <section id="products" class="products">
+        <div class="products-inner">
+            <div class="products-header">
+                <div>
+                    <p class="section-label">Collection</p>
+                    <h2 class="section-title">Signature Pieces</h2>
+                </div>
+                <a href="#" class="view-all">View All →</a>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image">💍</div>
+                    <div class="product-overlay">
+                        <p class="product-category">Rings</p>
+                        <h3 class="product-name">18K Diamond Solitaire</h3>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">📿</div>
+                    <div class="product-overlay">
+                        <p class="product-category">Necklaces</p>
+                        <h3 class="product-name">Gold Tennis Necklace</h3>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">💎</div>
+                    <div class="product-overlay">
+                        <p class="product-category">Earrings</p>
+                        <h3 class="product-name">Diamond Drop Earrings</h3>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image">⌚</div>
+                    <div class="product-overlay">
+                        <p class="product-category">Bracelets</p>
+                        <h3 class="product-name">Platinum Tennis</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="cta">
+        <div class="cta-inner">
+            <p class="section-label">Partnership</p>
+            <h2 class="cta-title">함께 만들어가는 <em>특별한 가치</em></h2>
+            <p class="cta-desc">
+                30년 전통의 Ju주얼리와 함께 새로운 비즈니스 기회를 만들어가세요.
+            </p>
+            <a href="#" class="btn btn-gold">상담 신청하기</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-top">
+                <div>
+                    <div class="footer-brand">
+                        <div class="footer-brand-icon">J</div>
+                        <span class="footer-brand-text">JU JEWELRY</span>
+                    </div>
+                    <p class="footer-desc">
+                        세대를 잇는 장인 정신.<br>
+                        30년 전통의 프리미엄 귀금속 도매.
+                    </p>
+                </div>
+                <div class="footer-col">
+                    <h4>Collection</h4>
+                    <ul>
+                        <li><a href="#">Rings</a></li>
+                        <li><a href="#">Necklaces</a></li>
+                        <li><a href="#">Earrings</a></li>
+                        <li><a href="#">Bracelets</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Company</h4>
+                    <ul>
+                        <li><a href="#">Our Heritage</a></li>
+                        <li><a href="#">Wholesale</a></li>
+                        <li><a href="#">Partners</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <ul>
+                        <li><a href="#">02-000-0000</a></li>
+                        <li><a href="#">서울 종로구</a></li>
+                        <li><a href="#">info@jujewelry.kr</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <span>© 2024 JU Jewelry. All rights reserved.</span>
+                <div class="footer-links">
+                    <a href="#">Privacy</a>
+                    <a href="#">Terms</a>
+                    <a href="#">Instagram</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

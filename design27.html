@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ju주얼리 - Vaporwave</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Vaporwave Color Palette */
+            --color-pink: #ff71ce;
+            --color-cyan: #01cdfe;
+            --color-purple: #b967ff;
+            --color-blue: #05ffa1;
+            --color-orange: #fffb96;
+            --color-dark: #1a0a2e;
+            --color-darker: #0f0518;
+
+            /* Typography */
+            --font-main: 'Outfit', sans-serif;
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 6rem;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background: linear-gradient(180deg, var(--color-dark) 0%, var(--color-darker) 100%);
+            color: #fff;
+            line-height: 1.6;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Grid Background */
+        .grid-bg {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            background-image:
+                linear-gradient(rgba(255, 113, 206, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(255, 113, 206, 0.1) 1px, transparent 1px);
+            background-size: 40px 40px;
+            perspective: 500px;
+        }
+
+        .grid-bg::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 50%;
+            background: linear-gradient(180deg,
+                transparent 0%,
+                rgba(255, 113, 206, 0.05) 50%,
+                rgba(1, 205, 254, 0.1) 100%
+            );
+        }
+
+        /* Sun */
+        .sun {
+            position: fixed;
+            top: 15%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 300px;
+            background: linear-gradient(180deg,
+                var(--color-orange) 0%,
+                var(--color-pink) 50%,
+                var(--color-purple) 100%
+            );
+            border-radius: 50%;
+            opacity: 0.3;
+            filter: blur(2px);
+            z-index: -1;
+        }
+
+        .sun::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: repeating-linear-gradient(
+                0deg,
+                transparent 0px,
+                transparent 8px,
+                rgba(26, 10, 46, 0.8) 8px,
+                rgba(26, 10, 46, 0.8) 12px
+            );
+            border-radius: 50%;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Glowing Text */
+        .glow-text {
+            text-shadow:
+                0 0 10px var(--color-pink),
+                0 0 20px var(--color-pink),
+                0 0 40px var(--color-pink);
+        }
+
+        .glow-cyan {
+            text-shadow:
+                0 0 10px var(--color-cyan),
+                0 0 20px var(--color-cyan),
+                0 0 40px var(--color-cyan);
+        }
+
+        /* Back Button */
+        .back-button {
+            position: fixed;
+            top: var(--space-md);
+            left: var(--space-md);
+            z-index: 1000;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-cyan);
+            text-decoration: none;
+            padding: 12px 24px;
+            background: rgba(1, 205, 254, 0.1);
+            border: 1px solid var(--color-cyan);
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: var(--color-cyan);
+            color: var(--color-dark);
+            box-shadow: 0 0 20px var(--color-cyan);
+        }
+
+        /* Header */
+        header {
+            padding: 24px 0;
+            border-bottom: 1px solid rgba(255, 113, 206, 0.3);
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            color: var(--color-pink);
+            text-decoration: none;
+            text-shadow:
+                0 0 10px var(--color-pink),
+                0 0 20px var(--color-pink);
+            letter-spacing: 0.1em;
+        }
+
+        nav {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            nav {
+                display: flex;
+                align-items: center;
+                gap: 40px;
+            }
+        }
+
+        nav a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-cyan);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover {
+            text-shadow: 0 0 10px var(--color-cyan);
+        }
+
+        .header-cta {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-dark);
+            text-decoration: none;
+            padding: 12px 28px;
+            background: linear-gradient(135deg, var(--color-pink), var(--color-cyan));
+            transition: all 0.3s ease;
+        }
+
+        .header-cta:hover {
+            box-shadow: 0 0 30px var(--color-pink);
+            transform: scale(1.05);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: var(--space-xl) 0;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-cyan);
+            padding: 10px 24px;
+            border: 1px solid var(--color-cyan);
+            margin-bottom: var(--space-md);
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 10vw, 6rem);
+            font-weight: 800;
+            line-height: 1.05;
+            margin-bottom: var(--space-md);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .hero-title .line-1 {
+            display: block;
+            color: var(--color-pink);
+            text-shadow:
+                0 0 10px var(--color-pink),
+                0 0 30px var(--color-pink),
+                0 0 60px var(--color-pink);
+        }
+
+        .hero-title .line-2 {
+            display: block;
+            color: var(--color-cyan);
+            text-shadow:
+                0 0 10px var(--color-cyan),
+                0 0 30px var(--color-cyan),
+                0 0 60px var(--color-cyan);
+            -webkit-text-stroke: 2px var(--color-cyan);
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-desc {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.7);
+            max-width: 500px;
+            margin: 0 auto var(--space-lg);
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-size: 0.9375rem;
+            font-weight: 600;
+            text-decoration: none;
+            padding: 16px 40px;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            color: var(--color-dark);
+            background: linear-gradient(135deg, var(--color-pink), var(--color-purple));
+            box-shadow: 0 0 20px rgba(255, 113, 206, 0.5);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 40px rgba(255, 113, 206, 0.7);
+        }
+
+        .btn-outline {
+            color: var(--color-cyan);
+            background: transparent;
+            border: 2px solid var(--color-cyan);
+        }
+
+        .btn-outline:hover {
+            background: var(--color-cyan);
+            color: var(--color-dark);
+            box-shadow: 0 0 20px var(--color-cyan);
+        }
+
+        /* Stats */
+        .stats {
+            padding: var(--space-lg) 0;
+            border-top: 1px solid rgba(255, 113, 206, 0.2);
+            border-bottom: 1px solid rgba(255, 113, 206, 0.2);
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: var(--space-md);
+        }
+
+        @media (min-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .stat-item {
+            text-align: center;
+            padding: 24px;
+        }
+
+        .stat-number {
+            font-size: clamp(2.5rem, 5vw, 3.5rem);
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--color-pink), var(--color-cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.6);
+            text-transform: uppercase;
+            letter-spacing: 0.15em;
+        }
+
+        /* Features */
+        .features {
+            padding: var(--space-xl) 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            color: var(--color-cyan);
+            margin-bottom: var(--space-sm);
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            color: var(--color-pink);
+            text-shadow: 0 0 20px rgba(255, 113, 206, 0.5);
+        }
+
+        .features-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .feature-card {
+            padding: 48px 32px;
+            background: rgba(255, 113, 206, 0.05);
+            border: 1px solid rgba(255, 113, 206, 0.3);
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            border-color: var(--color-pink);
+            box-shadow:
+                0 0 20px rgba(255, 113, 206, 0.3),
+                inset 0 0 20px rgba(255, 113, 206, 0.1);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto var(--space-md);
+            border: 2px solid var(--color-cyan);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--color-cyan);
+            margin-bottom: 12px;
+            letter-spacing: 0.05em;
+        }
+
+        .feature-desc {
+            font-size: 0.9375rem;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+        }
+
+        /* Products */
+        .products {
+            padding: var(--space-xl) 0;
+        }
+
+        .products-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .product-card {
+            aspect-ratio: 3/4;
+            position: relative;
+            background: linear-gradient(180deg,
+                rgba(255, 113, 206, 0.1) 0%,
+                rgba(1, 205, 254, 0.1) 100%
+            );
+            border: 1px solid rgba(255, 113, 206, 0.3);
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            border-color: var(--color-pink);
+            box-shadow: 0 0 30px rgba(255, 113, 206, 0.4);
+        }
+
+        .product-visual {
+            position: absolute;
+            top: 40%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            filter: drop-shadow(0 0 10px var(--color-pink));
+        }
+
+        .product-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 24px;
+            background: linear-gradient(180deg, transparent, rgba(26, 10, 46, 0.95));
+            text-align: center;
+        }
+
+        .product-category {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            text-transform: uppercase;
+            color: var(--color-cyan);
+            margin-bottom: 8px;
+        }
+
+        .product-name {
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: var(--color-pink);
+        }
+
+        /* CTA */
+        .cta {
+            padding: var(--space-xl) 0;
+        }
+
+        .cta-card {
+            padding: var(--space-xl);
+            background: linear-gradient(135deg,
+                rgba(255, 113, 206, 0.2) 0%,
+                rgba(185, 103, 255, 0.2) 50%,
+                rgba(1, 205, 254, 0.2) 100%
+            );
+            border: 2px solid var(--color-pink);
+            text-align: center;
+        }
+
+        .cta-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #fff;
+            margin-bottom: var(--space-sm);
+            text-shadow: 0 0 20px rgba(255, 113, 206, 0.5);
+        }
+
+        .cta-desc {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 450px;
+            margin: 0 auto var(--space-lg);
+        }
+
+        .cta-btn {
+            display: inline-block;
+            font-size: 0.9375rem;
+            font-weight: 600;
+            color: var(--color-dark);
+            text-decoration: none;
+            padding: 16px 48px;
+            background: linear-gradient(135deg, var(--color-cyan), var(--color-blue));
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            transition: all 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            box-shadow: 0 0 30px var(--color-cyan);
+            transform: scale(1.05);
+        }
+
+        /* Footer */
+        footer {
+            padding: var(--space-lg) 0;
+            border-top: 1px solid rgba(255, 113, 206, 0.2);
+        }
+
+        .footer-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-md);
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .footer-inner {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+        }
+
+        .footer-logo {
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: var(--color-pink);
+            text-shadow: 0 0 10px var(--color-pink);
+            letter-spacing: 0.1em;
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-nav a {
+            font-size: 0.75rem;
+            font-weight: 500;
+            color: rgba(255, 255, 255, 0.6);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+        }
+
+        .footer-nav a:hover {
+            color: var(--color-cyan);
+        }
+
+        .footer-copyright {
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.4);
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-bg"></div>
+    <div class="sun"></div>
+
+    <a href="index.html" class="back-button">← BACK</a>
+
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <a href="#" class="logo">ＪＵ</a>
+                <nav>
+                    <a href="#features">About</a>
+                    <a href="#products">Collection</a>
+                    <a href="#contact">Contact</a>
+                </nav>
+                <a href="#contact" class="header-cta">Connect</a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <span class="hero-badge">Ｅｓｔａｂｌｉｓｈｅｄ １９９４</span>
+            <h1 class="hero-title">
+                <span class="line-1">Ａｅｓｔｈｅｔｉｃ</span>
+                <span class="line-2">Ｊｅｗｅｌｒｙ</span>
+            </h1>
+            <p class="hero-desc">
+                30년의 장인 정신으로 완성되는 프리미엄 주얼리.
+                500개 이상의 파트너사가 신뢰하는 품질.
+            </p>
+            <div class="hero-buttons">
+                <a href="#products" class="btn btn-primary">Ｅｘｐｌｏｒｅ</a>
+                <a href="#features" class="btn btn-outline">Ｌｅａｒｎ Ｍｏｒｅ</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-number">30</div>
+                    <div class="stat-label">Years</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">500+</div>
+                    <div class="stat-label">Partners</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">50K+</div>
+                    <div class="stat-label">Products</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-number">24</div>
+                    <div class="stat-label">Craftsmen</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-label">Ｗｈｙ Ｕｓ</p>
+                <h2 class="section-title">Ｐｒｅｍｉｕｍ Ｑｕａｌｉｔｙ</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">◇</div>
+                    <h3 class="feature-title">Premium</h3>
+                    <p class="feature-desc">99.9% 고순도 귀금속과 엄선된 천연 원석만을 사용합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✦</div>
+                    <h3 class="feature-title">Crafted</h3>
+                    <p class="feature-desc">24명의 마스터 장인이 한 점 한 점 정성을 담아 제작합니다.</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">◈</div>
+                    <h3 class="feature-title">Partners</h3>
+                    <p class="feature-desc">안정적인 공급과 합리적인 도매가. 파트너 전용 혜택을 제공합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="products" id="products">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-label">Ｃｏｌｌｅｃｔｉｏｎ</p>
+                <h2 class="section-title">Ｏｕｒ Ｐｉｅｃｅｓ</h2>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-visual">💍</div>
+                    <div class="product-info">
+                        <p class="product-category">Ｒｉｎｇｓ</p>
+                        <h3 class="product-name">Eternity Band</h3>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-visual">📿</div>
+                    <div class="product-info">
+                        <p class="product-category">Ｎｅｃｋｌａｃｅｓ</p>
+                        <h3 class="product-name">Classic Pendant</h3>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-visual">✨</div>
+                    <div class="product-info">
+                        <p class="product-category">Ｅａｒｒｉｎｇｓ</p>
+                        <h3 class="product-name">Drop Diamond</h3>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-visual">⌚</div>
+                    <div class="product-info">
+                        <p class="product-category">Ｂｒａｃｅｌｅｔｓ</p>
+                        <h3 class="product-name">Tennis Bracelet</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta" id="contact">
+        <div class="container">
+            <div class="cta-card">
+                <h2 class="cta-title">Ｃｏｎｎｅｃｔ Ｗｉｔｈ Ｕｓ</h2>
+                <p class="cta-desc">B2B 거래 문의, 쇼룸 방문 예약, 커스텀 오더까지 무엇이든 편하게 연락 주세요.</p>
+                <a href="mailto:partner@jujewelry.co.kr" class="cta-btn">Ｃｏｎｔａｃｔ →</a>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <span class="footer-logo">ＪＵ ＪＥＷＥＬＲＹ</span>
+                <nav class="footer-nav">
+                    <a href="#">About</a>
+                    <a href="#">Collection</a>
+                    <a href="#">Wholesale</a>
+                    <a href="#">Privacy</a>
+                </nav>
+                <p class="footer-copyright">© 2024 Ju Jewelry</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

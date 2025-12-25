@@ -1,0 +1,900 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ju주얼리 - Glassmorphism</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Cormorant+Garamond:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-bg-start: #1a1a2e;
+            --color-bg-mid: #16213e;
+            --color-bg-end: #0f0f23;
+            --color-text: #ffffff;
+            --color-text-muted: rgba(255, 255, 255, 0.6);
+            --color-accent: #c9a962;
+            --color-accent-glow: rgba(201, 169, 98, 0.4);
+            --color-glass: rgba(255, 255, 255, 0.08);
+            --color-glass-border: rgba(255, 255, 255, 0.15);
+            --color-glass-strong: rgba(255, 255, 255, 0.12);
+
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Outfit', sans-serif;
+
+            --blur-sm: 10px;
+            --blur-md: 20px;
+            --blur-lg: 30px;
+
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 6rem;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-body);
+            background: linear-gradient(135deg, var(--color-bg-start) 0%, var(--color-bg-mid) 50%, var(--color-bg-end) 100%);
+            background-attachment: fixed;
+            color: var(--color-text);
+            line-height: 1.6;
+            font-weight: 300;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated Background Orbs */
+        .bg-orbs {
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        .orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.4;
+            animation: float 20s ease-in-out infinite;
+        }
+
+        .orb-1 {
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(201, 169, 98, 0.3) 0%, transparent 70%);
+            top: -200px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .orb-2 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(99, 102, 241, 0.2) 0%, transparent 70%);
+            bottom: -150px;
+            left: -100px;
+            animation-delay: -7s;
+        }
+
+        .orb-3 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(236, 72, 153, 0.15) 0%, transparent 70%);
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            animation-delay: -14s;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -30px) scale(1.05); }
+            50% { transform: translate(-20px, 20px) scale(0.95); }
+            75% { transform: translate(20px, 30px) scale(1.02); }
+        }
+
+        /* Glass Card Mixin */
+        .glass {
+            background: var(--color-glass);
+            backdrop-filter: blur(var(--blur-md));
+            -webkit-backdrop-filter: blur(var(--blur-md));
+            border: 1px solid var(--color-glass-border);
+            border-radius: 20px;
+        }
+
+        .glass-strong {
+            background: var(--color-glass-strong);
+            backdrop-filter: blur(var(--blur-lg));
+            -webkit-backdrop-filter: blur(var(--blur-lg));
+        }
+
+        /* Back Button */
+        .back-button {
+            position: fixed;
+            top: var(--space-md);
+            left: var(--space-md);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            gap: var(--space-xs);
+            padding: var(--space-xs) var(--space-sm);
+            background: var(--color-glass);
+            backdrop-filter: blur(var(--blur-sm));
+            -webkit-backdrop-filter: blur(var(--blur-sm));
+            color: var(--color-text);
+            text-decoration: none;
+            font-size: 0.75rem;
+            letter-spacing: 0.1em;
+            border: 1px solid var(--color-glass-border);
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: var(--color-glass-strong);
+            border-color: var(--color-accent);
+            box-shadow: 0 0 20px var(--color-accent-glow);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: var(--space-md);
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 100;
+            padding: var(--space-sm) var(--space-lg);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: var(--space-xl);
+            background: var(--color-glass);
+            backdrop-filter: blur(var(--blur-md));
+            -webkit-backdrop-filter: blur(var(--blur-md));
+            border: 1px solid var(--color-glass-border);
+            border-radius: 50px;
+        }
+
+        .logo {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 400;
+            letter-spacing: 0.1em;
+            color: var(--color-accent);
+        }
+
+        nav {
+            display: flex;
+            gap: var(--space-md);
+        }
+
+        nav a {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--color-text);
+        }
+
+        .header-btn {
+            padding: var(--space-xs) var(--space-sm);
+            background: var(--color-accent);
+            color: var(--color-bg-start);
+            font-size: 0.7rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .header-btn:hover {
+            box-shadow: 0 0 30px var(--color-accent-glow);
+            transform: translateY(-2px);
+        }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: var(--space-xl) var(--space-md);
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: var(--space-xs) var(--space-sm);
+            background: var(--color-glass);
+            backdrop-filter: blur(var(--blur-sm));
+            -webkit-backdrop-filter: blur(var(--blur-sm));
+            border: 1px solid var(--color-glass-border);
+            border-radius: 30px;
+            font-size: 0.7rem;
+            letter-spacing: 0.15em;
+            color: var(--color-accent);
+            margin-bottom: var(--space-md);
+        }
+
+        .hero-title {
+            font-family: var(--font-display);
+            font-size: clamp(3rem, 8vw, 6rem);
+            font-weight: 400;
+            line-height: 1.1;
+            margin-bottom: var(--space-md);
+            letter-spacing: 0.02em;
+        }
+
+        .hero-title .accent {
+            color: var(--color-accent);
+            font-style: italic;
+        }
+
+        .hero-desc {
+            font-size: 1rem;
+            color: var(--color-text-muted);
+            max-width: 500px;
+            margin: 0 auto var(--space-lg);
+            line-height: 1.8;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: var(--space-sm);
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: var(--space-sm) var(--space-md);
+            font-size: 0.8rem;
+            font-weight: 500;
+            letter-spacing: 0.1em;
+            text-decoration: none;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: var(--color-accent);
+            color: var(--color-bg-start);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 10px 40px var(--color-accent-glow);
+            transform: translateY(-3px);
+        }
+
+        .btn-glass {
+            background: var(--color-glass);
+            backdrop-filter: blur(var(--blur-sm));
+            -webkit-backdrop-filter: blur(var(--blur-sm));
+            border: 1px solid var(--color-glass-border);
+            color: var(--color-text);
+        }
+
+        .btn-glass:hover {
+            background: var(--color-glass-strong);
+            border-color: var(--color-accent);
+        }
+
+        /* Scroll Indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: var(--space-lg);
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-xs);
+        }
+
+        .scroll-indicator span {
+            font-size: 0.6rem;
+            letter-spacing: 0.2em;
+            color: var(--color-text-muted);
+        }
+
+        .scroll-mouse {
+            width: 24px;
+            height: 38px;
+            border: 2px solid var(--color-glass-border);
+            border-radius: 12px;
+            position: relative;
+        }
+
+        .scroll-mouse::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 8px;
+            background: var(--color-accent);
+            border-radius: 2px;
+            animation: scrollAnim 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollAnim {
+            0%, 100% { opacity: 1; top: 8px; }
+            50% { opacity: 0.3; top: 18px; }
+        }
+
+        /* Features */
+        .features {
+            padding: var(--space-xl) var(--space-md);
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            letter-spacing: 0.3em;
+            color: var(--color-accent);
+            margin-bottom: var(--space-xs);
+        }
+
+        .section-title {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 3rem);
+            font-weight: 400;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .feature-card {
+            padding: var(--space-lg);
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+        }
+
+        .feature-icon {
+            width: 70px;
+            height: 70px;
+            margin: 0 auto var(--space-md);
+            background: linear-gradient(135deg, var(--color-accent) 0%, rgba(201, 169, 98, 0.5) 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.8rem;
+        }
+
+        .feature-card h3 {
+            font-family: var(--font-display);
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: var(--space-sm);
+        }
+
+        .feature-card p {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+            line-height: 1.8;
+        }
+
+        /* Products */
+        .products {
+            padding: var(--space-xl) var(--space-md);
+            position: relative;
+            z-index: 1;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-md);
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .product-card {
+            aspect-ratio: 3/4;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .product-card:hover {
+            transform: scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+        }
+
+        .product-image {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(201, 169, 98, 0.2) 0%, rgba(99, 102, 241, 0.1) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .product-image span {
+            font-family: var(--font-display);
+            font-size: 4rem;
+            font-style: italic;
+            color: var(--color-accent);
+            opacity: 0.3;
+        }
+
+        .product-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: var(--space-md);
+            background: linear-gradient(to top, rgba(0,0,0,0.8), transparent);
+        }
+
+        .product-category {
+            font-size: 0.65rem;
+            letter-spacing: 0.2em;
+            color: var(--color-accent);
+            margin-bottom: var(--space-xs);
+        }
+
+        .product-name {
+            font-family: var(--font-display);
+            font-size: 1.1rem;
+            font-weight: 400;
+            margin-bottom: var(--space-xs);
+        }
+
+        .product-price {
+            font-size: 0.85rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Stats */
+        .stats {
+            padding: var(--space-xl) var(--space-md);
+            position: relative;
+            z-index: 1;
+        }
+
+        .stats-card {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: var(--space-lg);
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            font-weight: 400;
+            color: var(--color-accent);
+            line-height: 1;
+            margin-bottom: var(--space-xs);
+        }
+
+        .stat-label {
+            font-size: 0.75rem;
+            letter-spacing: 0.15em;
+            color: var(--color-text-muted);
+        }
+
+        /* Testimonial */
+        .testimonial {
+            padding: var(--space-xl) var(--space-md);
+            position: relative;
+            z-index: 1;
+        }
+
+        .testimonial-card {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+            text-align: center;
+        }
+
+        .testimonial-quote {
+            font-family: var(--font-display);
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            font-style: italic;
+            line-height: 1.8;
+            margin-bottom: var(--space-lg);
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: var(--space-sm);
+        }
+
+        .author-avatar {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--color-accent), rgba(201, 169, 98, 0.5));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+        }
+
+        .author-info h4 {
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .author-info p {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        /* CTA */
+        .cta {
+            padding: var(--space-xl) var(--space-md);
+            position: relative;
+            z-index: 1;
+        }
+
+        .cta-card {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, var(--color-accent-glow) 0%, transparent 50%);
+            opacity: 0.3;
+        }
+
+        .cta h2 {
+            font-family: var(--font-display);
+            font-size: clamp(2rem, 4vw, 2.5rem);
+            font-weight: 400;
+            margin-bottom: var(--space-sm);
+            position: relative;
+        }
+
+        .cta p {
+            font-size: 0.95rem;
+            color: var(--color-text-muted);
+            margin-bottom: var(--space-lg);
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+        }
+
+        .cta .btn {
+            position: relative;
+        }
+
+        /* Footer */
+        footer {
+            padding: var(--space-lg) var(--space-md);
+            position: relative;
+            z-index: 1;
+            border-top: 1px solid var(--color-glass-border);
+        }
+
+        .footer-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-logo {
+            font-family: var(--font-display);
+            font-size: 1.2rem;
+            color: var(--color-accent);
+            letter-spacing: 0.1em;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: var(--space-md);
+        }
+
+        .footer-links a {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+            text-decoration: none;
+            letter-spacing: 0.1em;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--color-text);
+        }
+
+        .footer-copyright {
+            font-size: 0.7rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .stats-card {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            header {
+                width: calc(100% - var(--space-lg));
+                padding: var(--space-sm);
+                gap: var(--space-sm);
+            }
+
+            nav {
+                display: none;
+            }
+
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-card {
+                grid-template-columns: 1fr;
+                gap: var(--space-md);
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: var(--space-md);
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Background Orbs -->
+    <div class="bg-orbs">
+        <div class="orb orb-1"></div>
+        <div class="orb orb-2"></div>
+        <div class="orb orb-3"></div>
+    </div>
+
+    <a href="index.html" class="back-button">
+        <span>&larr;</span> BACK
+    </a>
+
+    <!-- Header -->
+    <header>
+        <div class="logo">Ju</div>
+        <nav>
+            <a href="#features">ABOUT</a>
+            <a href="#products">COLLECTION</a>
+            <a href="#contact">CONTACT</a>
+        </nav>
+        <a href="#contact" class="header-btn">INQUIRE</a>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-content">
+            <span class="hero-badge">ESTABLISHED 1994</span>
+            <h1 class="hero-title">
+                Timeless<br><span class="accent">Elegance</span>
+            </h1>
+            <p class="hero-desc">
+                30년의 장인 정신으로 완성되는 주얼리.
+                시간이 지나도 변치 않는 아름다움을 담아 드립니다.
+            </p>
+            <div class="hero-buttons">
+                <a href="#products" class="btn btn-primary">VIEW COLLECTION</a>
+                <a href="#features" class="btn btn-glass">LEARN MORE</a>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <span>SCROLL</span>
+            <div class="scroll-mouse"></div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="section-header">
+            <p class="section-label">WHY CHOOSE US</p>
+            <h2 class="section-title">Premium Quality</h2>
+        </div>
+        <div class="features-grid">
+            <div class="feature-card glass">
+                <div class="feature-icon">
+                    <span>&#9830;</span>
+                </div>
+                <h3>Premium Materials</h3>
+                <p>99.9% 고순도 귀금속만을 사용합니다. 엄격한 품질 기준으로 최상의 원석만을 선별합니다.</p>
+            </div>
+            <div class="feature-card glass">
+                <div class="feature-icon">
+                    <span>&#10022;</span>
+                </div>
+                <h3>Master Craftsmanship</h3>
+                <p>30년 경력의 마스터 장인들이 한 점 한 점 정성을 담아 제작합니다.</p>
+            </div>
+            <div class="feature-card glass">
+                <div class="feature-icon">
+                    <span>&#9733;</span>
+                </div>
+                <h3>B2B Partnership</h3>
+                <p>500개 이상의 파트너사와 함께합니다. 안정적인 공급과 합리적인 도매가를 약속합니다.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products" id="products">
+        <div class="section-header">
+            <p class="section-label">COLLECTION</p>
+            <h2 class="section-title">Our Jewelry</h2>
+        </div>
+        <div class="products-grid">
+            <div class="product-card glass">
+                <div class="product-image"><span>R</span></div>
+                <div class="product-info">
+                    <p class="product-category">RINGS</p>
+                    <h3 class="product-name">Eternity Band</h3>
+                    <p class="product-price">도매가 문의</p>
+                </div>
+            </div>
+            <div class="product-card glass">
+                <div class="product-image"><span>N</span></div>
+                <div class="product-info">
+                    <p class="product-category">NECKLACES</p>
+                    <h3 class="product-name">Classic Pendant</h3>
+                    <p class="product-price">도매가 문의</p>
+                </div>
+            </div>
+            <div class="product-card glass">
+                <div class="product-image"><span>E</span></div>
+                <div class="product-info">
+                    <p class="product-category">EARRINGS</p>
+                    <h3 class="product-name">Drop Diamond</h3>
+                    <p class="product-price">도매가 문의</p>
+                </div>
+            </div>
+            <div class="product-card glass">
+                <div class="product-image"><span>B</span></div>
+                <div class="product-info">
+                    <p class="product-category">BRACELETS</p>
+                    <h3 class="product-name">Tennis Bracelet</h3>
+                    <p class="product-price">도매가 문의</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="stats-card glass-strong">
+            <div class="stat-item">
+                <div class="stat-number">30</div>
+                <div class="stat-label">YEARS</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">500+</div>
+                <div class="stat-label">PARTNERS</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">50K+</div>
+                <div class="stat-label">PRODUCTS</div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-number">24</div>
+                <div class="stat-label">CRAFTSMEN</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial -->
+    <section class="testimonial">
+        <div class="testimonial-card glass">
+            <p class="testimonial-quote">
+                "Ju주얼리와 10년째 파트너십을 유지하고 있습니다.
+                변함없는 품질과 신뢰가 저희 비즈니스의 근간입니다."
+            </p>
+            <div class="testimonial-author">
+                <div class="author-avatar">K</div>
+                <div class="author-info">
+                    <h4>김대표</h4>
+                    <p>Gold & Silver Boutique</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="contact">
+        <div class="cta-card glass-strong">
+            <h2>파트너가 되어주세요</h2>
+            <p>
+                B2B 거래 문의, 쇼룸 방문 예약, 커스텀 오더까지
+                무엇이든 편하게 연락 주세요.
+            </p>
+            <a href="#" class="btn btn-primary">CONTACT US</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-inner">
+            <div class="footer-logo">Ju JEWELRY</div>
+            <div class="footer-links">
+                <a href="#">ABOUT</a>
+                <a href="#">COLLECTION</a>
+                <a href="#">WHOLESALE</a>
+                <a href="#">PRIVACY</a>
+            </div>
+            <p class="footer-copyright">&copy; 2024 Ju Jewelry. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

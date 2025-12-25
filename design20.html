@@ -1,0 +1,890 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ju주얼리 - Gradient Mesh</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* Gradient Mesh Color Palette */
+            --color-text: #1a1a2e;
+            --color-text-light: #ffffff;
+            --color-text-muted: rgba(26, 26, 46, 0.6);
+            --color-text-muted-light: rgba(255, 255, 255, 0.7);
+            --color-accent: #c9a962;
+            --color-background: #fefefe;
+
+            /* Gradient Colors */
+            --gradient-1: #ffecd2;
+            --gradient-2: #fcb69f;
+            --gradient-3: #a18cd1;
+            --gradient-4: #fbc2eb;
+            --gradient-5: #fad0c4;
+
+            /* Typography */
+            --font-main: 'Sora', sans-serif;
+
+            /* Spacing */
+            --space-xs: 0.5rem;
+            --space-sm: 1rem;
+            --space-md: 2rem;
+            --space-lg: 4rem;
+            --space-xl: 6rem;
+            --space-2xl: 8rem;
+        }
+
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-background);
+            color: var(--color-text);
+            line-height: 1.6;
+            font-weight: 400;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Gradient Mesh Background */
+        .gradient-mesh {
+            position: fixed;
+            inset: 0;
+            z-index: -1;
+            overflow: hidden;
+        }
+
+        .mesh-blob {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            opacity: 0.7;
+            animation: meshFloat 20s ease-in-out infinite;
+        }
+
+        .blob-1 {
+            width: 600px;
+            height: 600px;
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            top: -10%;
+            left: -10%;
+            animation-delay: 0s;
+        }
+
+        .blob-2 {
+            width: 500px;
+            height: 500px;
+            background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%);
+            top: 20%;
+            right: -15%;
+            animation-delay: -5s;
+        }
+
+        .blob-3 {
+            width: 550px;
+            height: 550px;
+            background: linear-gradient(135deg, #fad0c4 0%, #ffd1ff 100%);
+            bottom: -10%;
+            left: 30%;
+            animation-delay: -10s;
+        }
+
+        .blob-4 {
+            width: 400px;
+            height: 400px;
+            background: linear-gradient(135deg, #ffeaa7 0%, #dfe6e9 100%);
+            bottom: 30%;
+            left: -10%;
+            animation-delay: -15s;
+        }
+
+        @keyframes meshFloat {
+            0%, 100% { transform: translate(0, 0) scale(1) rotate(0deg); }
+            25% { transform: translate(30px, -30px) scale(1.05) rotate(5deg); }
+            50% { transform: translate(-20px, 20px) scale(0.95) rotate(-5deg); }
+            75% { transform: translate(20px, 30px) scale(1.02) rotate(3deg); }
+        }
+
+        /* Back Button */
+        .back-button {
+            position: fixed;
+            top: var(--space-md);
+            left: var(--space-md);
+            z-index: 1000;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-text);
+            text-decoration: none;
+            padding: 10px 18px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            transition: all 0.3s ease;
+        }
+
+        .back-button:hover {
+            background: rgba(255, 255, 255, 0.9);
+            transform: translateX(-4px);
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px 0;
+        }
+
+        .header-inner {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 60px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .logo {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-text);
+            text-decoration: none;
+            letter-spacing: -0.02em;
+        }
+
+        nav {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            nav {
+                display: flex;
+                align-items: center;
+                gap: 40px;
+            }
+        }
+
+        nav a {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-text);
+            text-decoration: none;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        nav a:hover {
+            opacity: 1;
+        }
+
+        .header-cta {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: var(--color-text-light);
+            text-decoration: none;
+            padding: 10px 24px;
+            border-radius: 50px;
+            background: linear-gradient(135deg, var(--color-text) 0%, #2d2d4a 100%);
+            transition: all 0.3s ease;
+        }
+
+        .header-cta:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 30px rgba(26, 26, 46, 0.3);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding: 120px 0 80px;
+        }
+
+        .hero-content {
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            padding: 8px 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--color-text);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 50px;
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            margin-bottom: var(--space-md);
+        }
+
+        .hero-title {
+            font-size: clamp(3rem, 10vw, 5.5rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            color: var(--color-text);
+            margin-bottom: var(--space-md);
+        }
+
+        .hero-title span {
+            display: block;
+            background: linear-gradient(135deg, #c9a962 0%, #f0d78c 50%, #c9a962 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-desc {
+            font-size: 1.25rem;
+            font-weight: 400;
+            color: var(--color-text-muted);
+            max-width: 550px;
+            margin: 0 auto var(--space-lg);
+            line-height: 1.7;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 16px 32px;
+            font-size: 1rem;
+            font-weight: 600;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            color: var(--color-text-light);
+            background: linear-gradient(135deg, var(--color-text) 0%, #2d2d4a 100%);
+            box-shadow: 0 8px 30px rgba(26, 26, 46, 0.25);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(26, 26, 46, 0.35);
+        }
+
+        .btn-secondary {
+            color: var(--color-text);
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        /* Features Section */
+        .features {
+            padding: var(--space-2xl) 0;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: var(--space-xl);
+        }
+
+        .section-label {
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: var(--space-sm);
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--color-text);
+        }
+
+        .features-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .feature-card {
+            padding: 40px 32px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 24px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 50px rgba(26, 26, 46, 0.1);
+        }
+
+        .feature-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto var(--space-md);
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.75rem;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 12px;
+            color: var(--color-text);
+        }
+
+        .feature-desc {
+            font-size: 0.9375rem;
+            color: var(--color-text-muted);
+            line-height: 1.6;
+        }
+
+        /* Products Section */
+        .products {
+            padding: var(--space-2xl) 0;
+        }
+
+        .products-grid {
+            display: grid;
+            gap: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .product-card {
+            position: relative;
+            aspect-ratio: 3/4;
+            border-radius: 24px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.4s ease;
+        }
+
+        .product-card:hover {
+            transform: scale(1.03);
+        }
+
+        .product-bg {
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255, 236, 210, 0.9) 0%, rgba(252, 182, 159, 0.9) 100%);
+        }
+
+        .product-card:nth-child(2) .product-bg {
+            background: linear-gradient(135deg, rgba(161, 140, 209, 0.9) 0%, rgba(251, 194, 235, 0.9) 100%);
+        }
+
+        .product-card:nth-child(3) .product-bg {
+            background: linear-gradient(135deg, rgba(250, 208, 196, 0.9) 0%, rgba(255, 209, 255, 0.9) 100%);
+        }
+
+        .product-card:nth-child(4) .product-bg {
+            background: linear-gradient(135deg, rgba(254, 234, 167, 0.9) 0%, rgba(223, 230, 233, 0.9) 100%);
+        }
+
+        .product-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -60%);
+            font-size: 4rem;
+            opacity: 0.3;
+        }
+
+        .product-info {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 32px 24px;
+            background: linear-gradient(to top, rgba(26, 26, 46, 0.9), transparent);
+        }
+
+        .product-category {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--color-accent);
+            margin-bottom: 8px;
+        }
+
+        .product-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--color-text-light);
+            margin-bottom: 4px;
+        }
+
+        .product-price {
+            font-size: 0.875rem;
+            color: var(--color-text-muted-light);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: var(--space-xl) 0;
+        }
+
+        .stats-card {
+            padding: var(--space-xl);
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 32px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .stats-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .stat-number {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            background: linear-gradient(135deg, var(--color-text) 0%, #4a4a6a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            line-height: 1;
+            margin-bottom: 8px;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: var(--color-text-muted);
+            letter-spacing: 0.05em;
+        }
+
+        /* Testimonial Section */
+        .testimonial {
+            padding: var(--space-2xl) 0;
+        }
+
+        .testimonial-card {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: var(--space-xl);
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 32px;
+            text-align: center;
+        }
+
+        .testimonial-quote {
+            font-size: clamp(1.25rem, 3vw, 1.75rem);
+            font-weight: 500;
+            letter-spacing: -0.02em;
+            line-height: 1.6;
+            color: var(--color-text);
+            margin-bottom: var(--space-lg);
+        }
+
+        .testimonial-author {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-text);
+            margin-bottom: 4px;
+        }
+
+        .testimonial-role {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+        }
+
+        /* CTA Section */
+        .cta {
+            padding: var(--space-2xl) 0;
+        }
+
+        .cta-card {
+            padding: var(--space-xl);
+            background: linear-gradient(135deg, var(--color-text) 0%, #2d2d4a 100%);
+            border-radius: 32px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(201, 169, 98, 0.3) 0%, transparent 70%);
+            filter: blur(60px);
+        }
+
+        .cta-title {
+            font-size: clamp(2rem, 5vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            color: var(--color-text-light);
+            margin-bottom: var(--space-sm);
+            position: relative;
+        }
+
+        .cta-desc {
+            font-size: 1.0625rem;
+            color: var(--color-text-muted-light);
+            max-width: 450px;
+            margin: 0 auto var(--space-lg);
+            position: relative;
+        }
+
+        .cta .btn-primary {
+            background: linear-gradient(135deg, #c9a962 0%, #e8d5a3 100%);
+            color: var(--color-text);
+        }
+
+        .cta .btn-primary:hover {
+            box-shadow: 0 15px 40px rgba(201, 169, 98, 0.4);
+        }
+
+        /* Footer */
+        footer {
+            padding: var(--space-lg) 0;
+        }
+
+        .footer-inner {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: var(--space-md);
+            text-align: center;
+            padding: 32px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            border-radius: 24px;
+        }
+
+        @media (min-width: 768px) {
+            .footer-inner {
+                flex-direction: row;
+                justify-content: space-between;
+                text-align: left;
+            }
+        }
+
+        .footer-logo {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-text);
+        }
+
+        .footer-nav {
+            display: flex;
+            gap: 24px;
+        }
+
+        .footer-nav a {
+            font-size: 0.875rem;
+            color: var(--color-text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-nav a:hover {
+            color: var(--color-text);
+        }
+
+        .footer-copyright {
+            font-size: 0.75rem;
+            color: var(--color-text-muted);
+        }
+
+        /* Focus States */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 2px solid var(--color-accent);
+            outline-offset: 4px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Gradient Mesh Background -->
+    <div class="gradient-mesh">
+        <div class="mesh-blob blob-1"></div>
+        <div class="mesh-blob blob-2"></div>
+        <div class="mesh-blob blob-3"></div>
+        <div class="mesh-blob blob-4"></div>
+    </div>
+
+    <!-- Back Button -->
+    <a href="index.html" class="back-button">
+        <span>←</span> 뒤로
+    </a>
+
+    <!-- Header -->
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <a href="#" class="logo">Ju</a>
+                <nav>
+                    <a href="#features">특징</a>
+                    <a href="#products">컬렉션</a>
+                    <a href="#contact">문의</a>
+                </nav>
+                <a href="#contact" class="header-cta">파트너 문의</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <span class="hero-badge">Since 1994 · 30th Anniversary</span>
+                <h1 class="hero-title">
+                    당신의 빛나는 순간,
+                    <span>Ju Jewelry</span>
+                </h1>
+                <p class="hero-desc">
+                    30년의 장인 정신으로 완성되는 프리미엄 주얼리.
+                    500개 이상의 파트너사와 함께합니다.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#products" class="btn btn-primary">컬렉션 보기</a>
+                    <a href="#features" class="btn btn-secondary">더 알아보기</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features" id="features">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-label">Why Ju Jewelry</p>
+                <h2 class="section-title">선택받는 이유</h2>
+            </div>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">◇</div>
+                    <h3 class="feature-title">프리미엄 소재</h3>
+                    <p class="feature-desc">
+                        99.9% 고순도 귀금속과 엄선된 천연 원석만을 사용합니다.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">✦</div>
+                    <h3 class="feature-title">장인 정신</h3>
+                    <p class="feature-desc">
+                        24명의 마스터 장인이 한 점 한 점 정성을 담아 제작합니다.
+                    </p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">◈</div>
+                    <h3 class="feature-title">B2B 파트너십</h3>
+                    <p class="feature-desc">
+                        안정적인 공급과 합리적인 도매가. 파트너 전용 혜택을 제공합니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Products -->
+    <section class="products" id="products">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-label">Collection</p>
+                <h2 class="section-title">주얼리 컬렉션</h2>
+            </div>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-bg"></div>
+                    <div class="product-icon">💍</div>
+                    <div class="product-info">
+                        <p class="product-category">Rings</p>
+                        <h3 class="product-name">Eternity Band</h3>
+                        <p class="product-price">도매가 문의</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-bg"></div>
+                    <div class="product-icon">📿</div>
+                    <div class="product-info">
+                        <p class="product-category">Necklaces</p>
+                        <h3 class="product-name">Classic Pendant</h3>
+                        <p class="product-price">도매가 문의</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-bg"></div>
+                    <div class="product-icon">✨</div>
+                    <div class="product-info">
+                        <p class="product-category">Earrings</p>
+                        <h3 class="product-name">Drop Diamond</h3>
+                        <p class="product-price">도매가 문의</p>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-bg"></div>
+                    <div class="product-icon">⌚</div>
+                    <div class="product-info">
+                        <p class="product-category">Bracelets</p>
+                        <h3 class="product-name">Tennis Bracelet</h3>
+                        <p class="product-price">도매가 문의</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-card">
+                <div class="stats-grid">
+                    <div class="stat-item">
+                        <div class="stat-number">30</div>
+                        <div class="stat-label">Years</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Partners</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">50K+</div>
+                        <div class="stat-label">Products</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">24</div>
+                        <div class="stat-label">Craftsmen</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonial -->
+    <section class="testimonial">
+        <div class="container">
+            <div class="testimonial-card">
+                <p class="testimonial-quote">
+                    "Ju주얼리와 10년째 파트너십을 유지하고 있습니다.
+                    변함없는 품질과 신뢰가 저희 비즈니스의 근간입니다."
+                </p>
+                <p class="testimonial-author">김대표</p>
+                <p class="testimonial-role">Gold & Silver Boutique</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="contact">
+        <div class="container">
+            <div class="cta-card">
+                <h2 class="cta-title">파트너가 되어주세요</h2>
+                <p class="cta-desc">
+                    B2B 거래 문의, 쇼룸 방문 예약, 커스텀 오더까지
+                    무엇이든 편하게 연락 주세요.
+                </p>
+                <a href="mailto:partner@jujewelry.co.kr" class="btn btn-primary">
+                    문의하기 →
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <span class="footer-logo">Ju Jewelry</span>
+                <nav class="footer-nav">
+                    <a href="#">About</a>
+                    <a href="#">Collection</a>
+                    <a href="#">Wholesale</a>
+                    <a href="#">Privacy</a>
+                </nav>
+                <p class="footer-copyright">© 2024 Ju Jewelry. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
