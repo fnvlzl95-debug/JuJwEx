@@ -879,6 +879,31 @@
             letter-spacing: 0.05em;
         }
 
+        .preview-wholesale {
+            background: linear-gradient(135deg, #f9f8f6 60%, #b8956b 60%);
+            position: relative;
+        }
+        .preview-wholesale::before {
+            content: 'Ju.';
+            position: absolute;
+            top: 50%;
+            left: 30%;
+            transform: translate(-50%, -50%);
+            font-family: 'Cormorant Garamond', Georgia, serif;
+            font-size: 2rem;
+            font-weight: 700;
+            color: #1a1a1a;
+        }
+        .preview-wholesale::after {
+            content: '✦';
+            position: absolute;
+            top: 50%;
+            left: 75%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            color: #fff;
+        }
+
         @media (max-width: 1100px) {
             .design-card {
                 max-width: calc(33.333% - 12px);
@@ -1159,6 +1184,15 @@
                 <div class="design-number">28</div>
                 <h3 class="design-title">Dark Academia</h3>
                 <p class="design-desc">고전 학술풍, 버건디/골드, 세리프</p>
+            </div>
+        </a>
+
+        <a class="design-card" href="design29.html">
+            <div class="design-preview preview-wholesale"></div>
+            <div class="design-info">
+                <div class="design-number">29</div>
+                <h3 class="design-title">Wholesale B2B</h3>
+                <p class="design-desc">모던 B2B, 골드 악센트, 깔끔한 레이아웃</p>
             </div>
         </a>
     </div>
